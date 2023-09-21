@@ -4,22 +4,26 @@ using System.Text.Json;
 
 namespace OregonNexus.Broker.Domain;
 
-public class OutgoingRequest : BaseEntity, IAggregateRoot
+public class Request : BaseEntity, IAggregateRoot
 {
-    public string? _requestDetails { get; set; }
-    public DateTime RequestDate { get; set; }
     public Guid? EducationOrganizationId { get; set; }
     public EducationOrganization? EducationOrganization { get; set; }
-    public Guid? ProcessUserId { get; set; }
-    public User? ProcessUser { get; set; }
-    public string? Student { get; set; }
+    public JsonDocument? Student { get; set; }
+    public JsonDocument? RequestManifest { get; set; }
+    public Guid? RequestProcessUserId { get; set; }
+    public DateTime? InitialRequestSentDate { get; set; }
+    public JsonDocument? ResponseManifest { get; set; }
+    public Guid? ResponseProcessUserId { get; set; }
     public RequestStatus RequestStatus { get; set; } = RequestStatus.WaitingApproval;
-
+    
+    /*
+    public string? _requestDetails { get; set; }
     public RequestDetails? RequestDetails
     {
         get { return _requestDetails == null ? null : JsonSerializer.Deserialize<RequestDetails>(_requestDetails); }
         set { _requestDetails = JsonSerializer.Serialize(value); }
     }
+    */
 
     public List<PayloadContent> PayloadContents { get; set; } = new List<PayloadContent>();
 }
