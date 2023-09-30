@@ -24,6 +24,4 @@ public class Request : BaseEntity, IAggregateRoot
         set { _requestDetails = JsonSerializer.Serialize(value); }
     }
     */
-
-    public List<PayloadContent> PayloadContents { get; set; } = new List<PayloadContent>();
 }
