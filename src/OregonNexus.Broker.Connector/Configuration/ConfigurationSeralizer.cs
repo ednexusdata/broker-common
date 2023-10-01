@@ -29,7 +29,7 @@ public class ConfigurationSerializer
             var repoConnectorSettings = await _repo.FirstOrDefaultAsync(connectorSpec);
             if (repoConnectorSettings is not null)
             {
-                var configSettings = Newtonsoft.Json.Linq.JObject.Parse(repoConnectorSettings.Settings);
+                var configSettings = Newtonsoft.Json.Linq.JObject.Parse(repoConnectorSettings.Settings.RootElement.GetRawText());
 
                 var configSettingsObj = configSettings[objTypeName];
 
@@ -84,7 +84,7 @@ public class ConfigurationSerializer
         dynamic objWrapper = new ExpandoObject();
         ((IDictionary<String, Object>)objWrapper)[objTypeName] = obj;
 
-        var seralizedIConfigModel = JsonSerializer.Serialize<dynamic>(objWrapper);
+        var seralizedIConfigModel = JsonSerializer.SerializeToDocument<dynamic>(objWrapper);
         repoConnectorSettings.Settings = seralizedIConfigModel;
 
         if (objAssemblyName != null && repoConnectorSettings.Id != Guid.Empty) {
