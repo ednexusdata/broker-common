@@ -1,6 +1,7 @@
 // Copyright: 2023 Education Nexus Oregon
 // Author: Makoa Jacobsen, makoa@makoajacobsen.com
 using System.Text.Json;
+using Ardalis.GuardClauses;
 
 namespace OregonNexus.Broker.Domain;
 
@@ -14,7 +15,7 @@ public class Request : BaseEntity, IAggregateRoot
     public DateTime? InitialRequestSentDate { get; set; }
     public JsonDocument? ResponseManifest { get; set; }
     public Guid? ResponseProcessUserId { get; set; }
-    public RequestStatus RequestStatus { get; set; } = RequestStatus.WaitingApproval;
+    public RequestStatus RequestStatus { get; set; } = RequestStatus.Draft;
     
     /*
     public string? _requestDetails { get; set; }
