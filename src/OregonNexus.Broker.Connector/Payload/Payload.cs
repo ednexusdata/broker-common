@@ -4,5 +4,5 @@ namespace OregonNexus.Broker.Connector.Payload;
 
 public abstract class Payload : IPayload
 {
-    public List<PayloadContentType> PayloadContents;
+    public List<PayloadContentType> PayloadContents => new List<PayloadContentType>();
 }

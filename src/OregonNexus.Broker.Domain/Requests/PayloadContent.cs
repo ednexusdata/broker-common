@@ -8,10 +8,8 @@ namespace OregonNexus.Broker.Domain;
 
 public class PayloadContent : BaseEntity, IAggregateRoot
 {
-    public Guid? IncomingRequestId { get; set; }
-    public IncomingRequest? IncomingRequest { get; set; }
-    public Guid? OutgoingRequestId { get; set; }
-    public OutgoingRequest? OutgoingRequest { get; set; }
+    public Guid MessageId { get; set; }
+    public Message? Message { get; set; }
     public string? ContentType { get; set; }
     public byte[]? BlobContent { get; set; }
     public JsonDocument? JsonContent { get; set; }
