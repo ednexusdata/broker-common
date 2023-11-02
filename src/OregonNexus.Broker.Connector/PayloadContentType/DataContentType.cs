@@ -1,7 +1,7 @@
 namespace OregonNexus.Broker.Connector.PayloadContentTypes;
 
-public class DataContentType : PayloadContentType
+public abstract class DataContentType : PayloadContentType
 {
-    public string Schema { get; set; }
-    public string SchemaVersion { get; set; }
+    public abstract string Schema { get; }
+    public abstract string SchemaVersion { get; }
 }

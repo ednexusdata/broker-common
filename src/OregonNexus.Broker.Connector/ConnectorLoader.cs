@@ -61,7 +61,7 @@ public class ConnectorLoader
     {
         IsLoaded = true;
 
-        var connectorAssemblyPaths = Directory.GetFiles($"{System.AppDomain.CurrentDomain.BaseDirectory}connectors");
+        var connectorAssemblyPaths = Directory.GetDirectories($"{System.AppDomain.CurrentDomain.BaseDirectory}connectors");
         if (connectorAssemblyPaths.Length == 0)
         {
             _logger.LogInformation($"No connectors loaded from paths: {connectorAssemblyPaths}");
@@ -72,10 +72,17 @@ public class ConnectorLoader
         {
             if (String.IsNullOrEmpty(assemblyPath)) return;
 
-            var fileInfo = new FileInfo(assemblyPath);
-            if (fileInfo.Extension == ".dll")
+            var connectorAssemblyFiles = Directory.GetFiles(assemblyPath);
+
+            foreach(var assemblyFilePath in connectorAssemblyFiles)
             {
-                Assembly.LoadFrom(assemblyPath);
+                if (String.IsNullOrEmpty(assemblyFilePath)) return;
+
+                var fileInfo = new FileInfo(assemblyFilePath);
+                if (fileInfo.Extension == ".dll")
+                {
+                    Assembly.LoadFrom(assemblyFilePath);
+                }
             }
         }
 
@@ -83,15 +90,17 @@ public class ConnectorLoader
                         .SelectMany(s => s.GetTypes())
                         .Where(p => p.GetInterface(nameof(IConnector)) is not null);
 
-        foreach(var type in types)
-        {
-            if (type.GetInterface(nameof(IConnector)) != null)
+        if (types is not null) {
+            foreach(var type in types)
             {
-                Connectors.Add(type);
-                Assemblies.Add(type.Assembly.GetName().Name!, type.Assembly);
-                ConnectorIndex.Add(type.FullName!, type.AssemblyQualifiedName!);
-                
-                _logger.LogInformation($"Connector loaded: {type.FullName} from {type.AssemblyQualifiedName}");
+                if (type.GetInterface(nameof(IConnector)) != null)
+                {
+                    Connectors.Add(type);
+                    Assemblies.Add(type.Assembly.GetName().Name!, type.Assembly);
+                    ConnectorIndex.Add(type.FullName!, type.AssemblyQualifiedName!);
+                    
+                    _logger.LogInformation($"Connector loaded: {type.FullName} from {type.AssemblyQualifiedName}");
+                }
             }
         }
         
