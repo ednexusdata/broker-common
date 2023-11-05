@@ -40,6 +40,11 @@ public class ConnectorLoader
         return assembly.GetTypes().Where(x => x.GetInterface(nameof(Configuration.IConfiguration)) is not null).ToList();
     }
 
+    public List<Type>? GetPayloads(Assembly assembly)
+    {
+        return assembly.GetTypes().Where(x => x.GetInterface(nameof(IPayload)) is not null && x.IsAbstract == false).ToList();
+    }
+
     private void LoadPayloads()
     {
         var types = AppDomain.CurrentDomain.GetAssemblies()
