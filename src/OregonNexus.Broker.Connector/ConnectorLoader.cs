@@ -53,7 +53,7 @@ public class ConnectorLoader
 
         foreach(var type in types)
         {
-            if (type.GetInterface(nameof(IPayload)) is not null && type.IsAbstract == false)
+            if (type.GetInterface(nameof(IPayload)) is not null && type.IsAbstract == false && type.Assembly.GetName().Name == "OregonNexus.Broker.Connector")
             {
                 Payloads.Add(type);
                 
