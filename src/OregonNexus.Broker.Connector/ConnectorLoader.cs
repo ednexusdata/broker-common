@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OregonNexus.Broker.Connector.Payload;
+using OregonNexus.Broker.Connector.PayloadContentTypes;
 
 namespace OregonNexus.Broker.Connector;
 
@@ -9,6 +10,7 @@ public class ConnectorLoader
 {
     public List<Type> Connectors { get; private set; } = new List<Type>();
     public List<Type> Payloads { get; private set; } = new List<Type>();
+    public List<Type> ContentTypes { get; private set; } = new List<Type>();
 
     public Dictionary<string, Assembly> Assemblies { get; private set; } = new Dictionary<string, Assembly>();
 
@@ -32,6 +34,7 @@ public class ConnectorLoader
             LoadConnectorAssemblies();
             LoadConfigurations();
             LoadPayloads();
+            LoadContentTypes();
         }
     }
 
@@ -43,6 +46,11 @@ public class ConnectorLoader
     public List<Type>? GetPayloads(Assembly assembly)
     {
         return assembly.GetTypes().Where(x => x.GetInterface(nameof(IPayload)) is not null && x.IsAbstract == false).ToList();
+    }
+
+    public List<Type>? GetContentTypes()
+    {
+        return ContentTypes;
     }
 
     private void LoadPayloads()
@@ -121,6 +129,23 @@ public class ConnectorLoader
                 foreach(var config in configurations)
                 {
                     ConfigurationIndex.Add(config.FullName!, connector.AssemblyQualifiedName!);
+                }
+            }
+        }
+    }
+
+    private void LoadContentTypes()
+    {
+        foreach(var connector in Connectors)
+        {
+            var contentTypes = connector.Assembly.GetTypes().Where(p => p.IsAssignableTo(typeof(PayloadContentType)) && p.IsAbstract == false);
+            if (contentTypes.Count() > 0)
+            {
+                foreach(var contentType in contentTypes)
+                {
+                    ContentTypes.Add(contentType);
+                
+                    _logger.LogInformation($"ContentType loaded: {contentType.FullName} from {contentType.AssemblyQualifiedName}");
                 }
             }
         }
