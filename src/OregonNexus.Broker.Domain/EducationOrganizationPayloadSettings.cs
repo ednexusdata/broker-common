@@ -11,5 +11,5 @@ public class EducationOrganizationPayloadSettings : BaseEntity, IAggregateRoot
     public Guid? EducationOrganizationId { get; set; }
     public PayloadDirection? PayloadDirection { get; set; }
     public string Payload { get; set; } = default!;
-    public JsonDocument? Settings { get; set; } = default!;
+    public List<PayloadSettingsContentType> Settings { get; set; } = default!;
 }
