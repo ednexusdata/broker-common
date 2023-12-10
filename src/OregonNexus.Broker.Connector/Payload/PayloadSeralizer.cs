@@ -36,14 +36,14 @@ public class PayloadSerializer
             var repoConnectorSettings = await _repo.FirstOrDefaultAsync(connectorSpec);
             if (repoConnectorSettings is not null)
             {
-                var configSettings = Newtonsoft.Json.Linq.JObject.Parse(repoConnectorSettings.Settings.RootElement.GetRawText());
+                var configSettings = repoConnectorSettings.Settings;
 
                 //var configSettingsObj = configSettings[objTypeName];
 
                 foreach (var prop in iPayloadModel!.GetType().GetProperties())
                 {
                     // Check if prop in configSettings
-                    var value = configSettings.Value<string>(prop.Name);
+                    var value = configSettings.Where(i => i.PayloadContentType == prop.Name);
                     if (value is not null)
                     {
                         prop.SetValue(iPayloadModel, value);
