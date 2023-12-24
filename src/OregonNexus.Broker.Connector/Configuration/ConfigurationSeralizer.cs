@@ -29,7 +29,7 @@ public class ConfigurationSerializer
             var repoConnectorSettings = await _repo.FirstOrDefaultAsync(connectorSpec);
             if (repoConnectorSettings is not null)
             {
-                var configSettings = Newtonsoft.Json.Linq.JObject.Parse(repoConnectorSettings.Settings.RootElement.GetRawText());
+                var configSettings = Newtonsoft.Json.Linq.JObject.Parse(repoConnectorSettings?.Settings?.RootElement.GetRawText());
 
                 var configSettingsObj = configSettings[objTypeName];
 
