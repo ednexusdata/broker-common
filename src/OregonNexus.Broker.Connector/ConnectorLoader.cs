@@ -38,6 +38,11 @@ public class ConnectorLoader
         }
     }
 
+    public Type? GetConnector(string connectorType)
+    {
+        return Connectors.Where(x => x.GetInterface(nameof(IConnector)) is not null && x.FullName == connectorType).FirstOrDefault();
+    }
+
     public List<Type>? GetConfigurations(Assembly assembly)
     {
         return assembly.GetTypes().Where(x => x.GetInterface(nameof(Configuration.IConfiguration)) is not null).ToList();
