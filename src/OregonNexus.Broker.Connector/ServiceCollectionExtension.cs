@@ -31,7 +31,7 @@ public static class MyConfigServiceCollectionExtensions
         //services.AddScoped<ConnectorCredentialRetriever>();
 
         var types = AppDomain.CurrentDomain.GetAssemblies()
-                        .SelectMany(s => s.GetTypes())
+                        .SelectMany(s => s.GetExportedTypes())
                         .Where(p => p.GetInterface(nameof(IConnectorServiceCollection)) is not null);
         
         foreach(var type in types)

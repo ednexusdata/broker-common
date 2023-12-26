@@ -45,12 +45,12 @@ public class ConnectorLoader
 
     public List<Type>? GetConfigurations(Assembly assembly)
     {
-        return assembly.GetTypes().Where(x => x.GetInterface(nameof(Configuration.IConfiguration)) is not null).ToList();
+        return assembly.GetExportedTypes().Where(x => x.GetInterface(nameof(Configuration.IConfiguration)) is not null).ToList();
     }
 
     public List<Type>? GetPayloads(Assembly assembly)
     {
-        return assembly.GetTypes().Where(x => x.GetInterface(nameof(IPayload)) is not null && x.IsAbstract == false).ToList();
+        return assembly.GetExportedTypes().Where(x => x.GetInterface(nameof(IPayload)) is not null && x.IsAbstract == false).ToList();
     }
 
     public List<Type>? GetContentTypes()
@@ -61,7 +61,7 @@ public class ConnectorLoader
     private void LoadPayloads()
     {
         var types = AppDomain.CurrentDomain.GetAssemblies()
-                        .SelectMany(s => s.GetTypes())
+                        .SelectMany(s => s.GetExportedTypes())
                         .Where(p => p.GetInterface(nameof(IPayload)) is not null);
 
         foreach(var type in types)
@@ -105,7 +105,7 @@ public class ConnectorLoader
         }
 
         var types = AppDomain.CurrentDomain.GetAssemblies()
-                        .SelectMany(s => s.GetTypes())
+                        .SelectMany(s => s.GetExportedTypes())
                         .Where(p => p.GetInterface(nameof(IConnector)) is not null);
 
         if (types is not null) {
@@ -128,7 +128,7 @@ public class ConnectorLoader
     {
         foreach(var connector in Connectors)
         {
-            var configurations = connector.Assembly.GetTypes().Where(p => p.GetInterface(nameof(Configuration.IConfiguration)) is not null);
+            var configurations = connector.Assembly.GetExportedTypes().Where(p => p.GetInterface(nameof(Configuration.IConfiguration)) is not null);
             if (configurations.Count() > 0)
             {
                 foreach(var config in configurations)
@@ -143,7 +143,7 @@ public class ConnectorLoader
     {
         foreach(var connector in Connectors)
         {
-            var contentTypes = connector.Assembly.GetTypes().Where(p => p.IsAssignableTo(typeof(PayloadContentType)) && p.IsAbstract == false);
+            var contentTypes = connector.Assembly.GetExportedTypes().Where(p => p.IsAssignableTo(typeof(PayloadContentType)) && p.IsAbstract == false);
             if (contentTypes.Count() > 0)
             {
                 foreach(var contentType in contentTypes)
