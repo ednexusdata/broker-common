@@ -6,15 +6,13 @@ public class PayloadByNameAndEdOrgIdSpec : Specification<EducationOrganizationPa
 {
   public PayloadByNameAndEdOrgIdSpec(
     string payloadName, 
-    PayloadDirection payloadDirection, 
     Guid educationOrganizationId
   )
   {
     Query
         .Where(
           x => x.Payload == payloadName && 
-          x.EducationOrganizationId == educationOrganizationId &&
-          x.PayloadDirection == payloadDirection
+          x.EducationOrganizationId == educationOrganizationId
         );
   }
 }

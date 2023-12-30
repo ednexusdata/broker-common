@@ -17,8 +17,6 @@ public static class MyConfigServiceCollectionExtensions
     public static IServiceCollection AddConnectorLoader(this IServiceCollection services)
     {
         services.AddSingleton<ConnectorLoader>();
-        services.AddScoped<ConfigurationSerializer>();
-        services.AddScoped<PayloadSerializer>();
         
         return services;
     }

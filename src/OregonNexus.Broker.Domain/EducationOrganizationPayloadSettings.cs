@@ -9,7 +9,7 @@ public class EducationOrganizationPayloadSettings : BaseEntity, IAggregateRoot
 {
     public EducationOrganization? EducationOrganization { get; set; }
     public Guid? EducationOrganizationId { get; set; }
-    public PayloadDirection? PayloadDirection { get; set; }
     public string Payload { get; set; } = default!;
-    public List<PayloadSettingsContentType> Settings { get; set; } = default!;
+    public IncomingPayloadSettings? IncomingPayloadSettings { get; set; }
+    public OutgoingPayloadSettings? OutgoingPayloadSettings { get; set; }
 }
