@@ -5,6 +5,6 @@ namespace OregonNexus.Broker.Domain;
 
 public class OutgoingPayloadSettings
 {
-    public string? PrimaryDataConnector { get; set; }
+    public string? StudentLookupConnector { get; set; }
     public List<PayloadSettingsContentType>? PayloadContents { get; set; }
 }
