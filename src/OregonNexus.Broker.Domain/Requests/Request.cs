@@ -9,11 +9,11 @@ public class Request : BaseEntity, IAggregateRoot
 {
     public Guid? EducationOrganizationId { get; set; }
     public EducationOrganization? EducationOrganization { get; set; }
-    public JsonDocument? Student { get; set; }
-    public JsonDocument? RequestManifest { get; set; }
+    public StudentRequest? Student { get; set; }
+    public Manifest? RequestManifest { get; set; }
     public Guid? RequestProcessUserId { get; set; }
     public DateTime? InitialRequestSentDate { get; set; }
-    public JsonDocument? ResponseManifest { get; set; }
+    public Manifest? ResponseManifest { get; set; }
     public Guid? ResponseProcessUserId { get; set; }
     public RequestStatus RequestStatus { get; set; } = RequestStatus.Draft;
     

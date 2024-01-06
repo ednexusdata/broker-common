@@ -11,4 +11,5 @@ public class Student
     public string? StudentNumber { get; set; }
     public string? Grade { get; set; }
     public DateOnly? Birthdate { get; set; }
+    public string? Gender { get; set; }
 }
