@@ -7,6 +7,7 @@ public class OrganizationByTypeSpec : Specification<EducationOrganization>, ISin
   public OrganizationByTypeSpec(EducationOrganizationType orgType)
   {
     Query
+        .Include(x => x.ParentOrganization)
         .Where(organizationType => organizationType.EducationOrganizationType == orgType);
   }
 }
