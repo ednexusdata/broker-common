@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace OregonNexus.Broker.Connector.StudentLookup;
 
 public record StudentLookupResult
@@ -9,4 +11,5 @@ public record StudentLookupResult
     public string? Gender { get; set; }
     public string? Grade { get; set; }
     public DateOnly? BirthDate { get; set; }
+    public Dictionary<string, object>? Additional {get; set; }
 }

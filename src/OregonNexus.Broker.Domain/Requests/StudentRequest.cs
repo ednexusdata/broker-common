@@ -11,5 +11,5 @@ public class StudentRequest
     [JsonPropertyName("OregonNexus.Broker.Domain.Student")]
     public Student? Student { get; set; }
 
-    public Dictionary<string, string>? Connectors { get; set; }
+    public Dictionary<string, object>? Connectors { get; set; }
 }
