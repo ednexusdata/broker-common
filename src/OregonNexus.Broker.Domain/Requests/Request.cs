@@ -16,6 +16,7 @@ public class Request : BaseEntity, IAggregateRoot
     public Manifest? ResponseManifest { get; set; }
     public Guid? ResponseProcessUserId { get; set; }
     public RequestStatus RequestStatus { get; set; } = RequestStatus.Draft;
+    public List<PayloadContent>? PayloadContents { get; set; }
     
     /*
     public string? _requestDetails { get; set; }
