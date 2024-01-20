@@ -7,6 +7,7 @@ public class ConnectorByNameAndEdOrgIdSpec : Specification<EducationOrganization
   public ConnectorByNameAndEdOrgIdSpec(string connectorName, Guid educationOrganizationId)
   {
     Query
-        .Where(x => x.Connector == connectorName && x.EducationOrganizationId == educationOrganizationId);
+        .Where(x => x.Connector == connectorName && x.EducationOrganizationId == educationOrganizationId)
+        .EnableCache(nameof(ConnectorByNameAndEdOrgIdSpec), connectorName, educationOrganizationId);
   }
 }

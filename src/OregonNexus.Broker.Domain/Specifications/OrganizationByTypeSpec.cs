@@ -8,6 +8,7 @@ public class OrganizationByTypeSpec : Specification<EducationOrganization>, ISin
   {
     Query
         .Include(x => x.ParentOrganization)
-        .Where(organizationType => organizationType.EducationOrganizationType == orgType);
+        .Where(organizationType => organizationType.EducationOrganizationType == orgType)
+        .EnableCache(nameof(OrganizationByTypeSpec), orgType);
   }
 }
