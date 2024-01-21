@@ -4,4 +4,5 @@ namespace OregonNexus.Broker.Connector.Payload;
 
 public interface IPayload
 {
+    
 }

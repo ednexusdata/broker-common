@@ -1,6 +1,7 @@
 using System.Reflection;
 using OregonNexus.Broker.Connector;
 using OregonNexus.Broker.Connector.Configuration;
+using OregonNexus.Broker.Connector.Payload;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +17,6 @@ public static class MyConfigServiceCollectionExtensions
     public static IServiceCollection AddConnectorLoader(this IServiceCollection services)
     {
         services.AddSingleton<ConnectorLoader>();
-        services.AddScoped<ConfigurationSerializer>();
         
         return services;
     }
@@ -29,7 +29,7 @@ public static class MyConfigServiceCollectionExtensions
         //services.AddScoped<ConnectorCredentialRetriever>();
 
         var types = AppDomain.CurrentDomain.GetAssemblies()
-                        .SelectMany(s => s.GetTypes())
+                        .SelectMany(s => s.GetExportedTypes())
                         .Where(p => p.GetInterface(nameof(IConnectorServiceCollection)) is not null);
         
         foreach(var type in types)

@@ -4,4 +4,6 @@ public abstract class PayloadContentType
 {
     public abstract string ContentType { get; }
     public abstract string Content { get; set; }
+
+    public bool AllowMultiple = false;
 }

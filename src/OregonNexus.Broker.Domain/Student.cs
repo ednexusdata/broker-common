@@ -10,5 +10,6 @@ public class Student
     public string? MiddleName { get; set; }
     public string? StudentNumber { get; set; }
     public string? Grade { get; set; }
-    public DateTime? Birthdate { get; set; }
+    public DateOnly? Birthdate { get; set; }
+    public string? Gender { get; set; }
 }
