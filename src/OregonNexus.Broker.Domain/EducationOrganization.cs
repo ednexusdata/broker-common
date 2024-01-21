@@ -15,6 +15,7 @@ public class EducationOrganization : BaseEntity, IAggregateRoot
     public string? City { get; set; }
     public string? StateAbbreviation { get; set; }
     public string? PostalCode { get; set; }
+    public string? Domain { get; set; }
 }
 
 public enum EducationOrganizationType
