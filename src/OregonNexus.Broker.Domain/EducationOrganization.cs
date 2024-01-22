@@ -1,11 +1,12 @@
 // Copyright: 2023 Education Nexus Oregon
 // Author: Makoa Jacobsen, makoa@makoajacobsen.com
 
+using System.Text.Json.Serialization;
+
 namespace OregonNexus.Broker.Domain;
 
 public class EducationOrganization : BaseEntity, IAggregateRoot
 {
-
     public EducationOrganization? ParentOrganization { get; set; }
     public Guid? ParentOrganizationId { get; set; }
     public string Name { get; set; } = default!;
@@ -16,6 +17,8 @@ public class EducationOrganization : BaseEntity, IAggregateRoot
     public string? StateAbbreviation { get; set; }
     public string? PostalCode { get; set; }
     public string? Domain { get; set; }
+
+    public virtual ICollection<EducationOrganization>? EducationOrganizations { get; set; }
 }
 
 public enum EducationOrganizationType
