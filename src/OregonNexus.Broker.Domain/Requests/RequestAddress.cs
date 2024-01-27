@@ -7,11 +7,9 @@ namespace OregonNexus.Broker.Domain;
 
 public class RequestAddress
 {
-    public string? District { get; set; } = default!;
-    public string? School { get; set; } = default!;
-    public string? Email { get; set; } = default!;
-    public string? StreetNumberName { get; set; } = default!;
-    public string? City { get; set; } = default!;
-    public string? StateAbbreviation { get; set; } = default!;
-    public string? PostalCode { get; set; } = default!;
+    public District? District { get; set; }
+    public School? School { get; set; }
+    public EducationOrganizationContact? Sender { get; set; }
+
+    public string? BrokerAddress { get; set; }
 }
