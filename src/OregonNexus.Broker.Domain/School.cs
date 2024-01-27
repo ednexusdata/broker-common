@@ -7,4 +7,5 @@ public class School
     public string? Number { get; set; }
 
     public Address? Address { get; set; }
+    public ICollection<EducationOrganizationContact>? Contacts { get; set; }
 }

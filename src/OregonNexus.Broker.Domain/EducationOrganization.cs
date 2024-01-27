@@ -12,11 +12,9 @@ public class EducationOrganization : BaseEntity, IAggregateRoot
     public string Name { get; set; } = default!;
     public string? Number { get; set; } = default!;
     public EducationOrganizationType EducationOrganizationType { get; set; } = EducationOrganizationType.District;
-    public string? StreetNumberName { get; set; }
-    public string? City { get; set; }
-    public string? StateAbbreviation { get; set; }
-    public string? PostalCode { get; set; }
+    public Address? Address { get; set; }
     public string? Domain { get; set; }
+    public List<EducationOrganizationContact>? Contacts { get; set; }
 
     public virtual ICollection<EducationOrganization>? EducationOrganizations { get; set; }
 }
