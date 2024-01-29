@@ -7,7 +7,7 @@ namespace OregonNexus.Broker.Domain;
 
 public class Request : BaseEntity, IAggregateRoot
 {
-    public Guid? EducationOrganizationId { get; set; }
+    public Guid EducationOrganizationId { get; set; }
     public EducationOrganization? EducationOrganization { get; set; }
     public StudentRequest? Student { get; set; }
     public Manifest? RequestManifest { get; set; }
@@ -19,6 +19,7 @@ public class Request : BaseEntity, IAggregateRoot
     public string? ProcessState {get; set; }
     public string? WorkerInstance {get; set; }
     public List<PayloadContent>? PayloadContents { get; set; }
+    public IncomingOutgoing IncomingOutgoing { get; set; } = IncomingOutgoing.Incoming;
     
     /*
     public string? _requestDetails { get; set; }
