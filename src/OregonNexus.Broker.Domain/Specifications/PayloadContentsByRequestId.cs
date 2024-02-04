@@ -7,6 +7,6 @@ public class PayloadContentsByRequestId : Specification<PayloadContent>, ISingle
   public PayloadContentsByRequestId(Guid requestId)
   {
     Query
-        .Where(req => req.RequestId == requestId);
+        .Where(req => req.RequestId == requestId && req.MessageId == null);
   }
 }
