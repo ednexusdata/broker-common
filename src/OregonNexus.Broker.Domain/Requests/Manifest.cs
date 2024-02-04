@@ -12,5 +12,5 @@ public class Manifest
     public RequestAddress? From { get; set; }
     public RequestAddress? To { get; set; }
     public string? Note { get; set; }
-    public List<ManifestContent>? Contents { get; set; }
+    public List<ManifestContent>? Contents { get; set; } = new List<ManifestContent>();
 }

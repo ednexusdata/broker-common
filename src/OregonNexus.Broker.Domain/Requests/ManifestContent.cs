@@ -7,6 +7,7 @@ namespace OregonNexus.Broker.Domain;
 
 public class ManifestContent
 {
+    public Guid? Id { get; set; }
     public string ContentType { get; set; } = default!;
     public string FileName { get; set; } = default!;
 }
