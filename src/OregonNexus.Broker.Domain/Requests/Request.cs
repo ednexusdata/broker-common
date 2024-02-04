@@ -20,6 +20,7 @@ public class Request : BaseEntity, IAggregateRoot
     public string? WorkerInstance {get; set; }
     public List<PayloadContent>? PayloadContents { get; set; }
     public IncomingOutgoing IncomingOutgoing { get; set; } = IncomingOutgoing.Incoming;
+    public string Payload { get; set; } = default!;
     
     /*
     public string? _requestDetails { get; set; }
