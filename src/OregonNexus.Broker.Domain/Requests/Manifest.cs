@@ -7,6 +7,7 @@ namespace OregonNexus.Broker.Domain;
 
 public class Manifest
 {
+    public Guid? RequestId { get; set; }
     public string RequestType { get; set; } = default!;
     public Student? Student { get; set; }
     public RequestAddress? From { get; set; }
