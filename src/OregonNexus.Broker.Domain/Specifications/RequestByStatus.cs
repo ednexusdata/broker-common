@@ -6,9 +6,10 @@ public class RequestsReadyForProcessing : Specification<Request>, ISingleResultS
 {
   public RequestsReadyForProcessing()
   {
-    var requestStatuses = new RequestStatus[] { RequestStatus.WaitingToSend, RequestStatus.WaitingToImport };
+    var requestStatuses = new RequestStatus[] { RequestStatus.WaitingToSend, RequestStatus.WaitingToLoad, RequestStatus.WaitingToImport };
 
     Query
-        .Where(req => requestStatuses.Contains(req.RequestStatus) && req.WorkerInstance == null);
+        .Include(i => i.EducationOrganization)
+        .Where(req => requestStatuses.Contains(req.RequestStatus));
   }
 }

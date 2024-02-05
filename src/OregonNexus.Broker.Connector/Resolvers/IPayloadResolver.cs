@@ -14,7 +14,7 @@ namespace OregonNexus.Broker.Connector.Resolvers;
 
 public interface IPayloadResolver
 {
-    public Task<IncomingPayloadSettings> FetchIncomingPayloadSettingsAsync<T>() where T : IPayload;
+    public Task<IncomingPayloadSettings> FetchIncomingPayloadSettingsAsync<T>(Guid educationOrganizationId) where T : IPayload;
 
-    public Task<OutgoingPayloadSettings> FetchOutgoingPayloadSettingsAsync<T>() where T : IPayload;
+    public Task<OutgoingPayloadSettings> FetchOutgoingPayloadSettingsAsync<T>(Guid educationOrganizationId) where T : IPayload;
 }
