@@ -3,7 +3,7 @@ namespace OregonNexus.Broker.Connector.PayloadContentTypes;
 public abstract class PayloadContentType
 {
     public abstract string ContentType { get; }
-    public virtual string Content { get; set; } = default!;
+    public abstract string Content { get; }
 
     public bool AllowMultiple = false;
 }
