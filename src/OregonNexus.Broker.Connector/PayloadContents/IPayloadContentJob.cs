@@ -4,5 +4,5 @@ namespace OregonNexus.Broker.Connector.PayloadContents;
 
 public interface IPayloadContentJob
 {
-    public Task<PayloadContentType> ExecuteAsync(string studentUniqueId, Guid educationOrganizationId);
+    public Task<PayloadContentType> ExecuteAsync(string studentUniqueId);
 }
