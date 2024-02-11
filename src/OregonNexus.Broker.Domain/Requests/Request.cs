@@ -21,13 +21,5 @@ public class Request : BaseEntity, IAggregateRoot
     public List<PayloadContent>? PayloadContents { get; set; }
     public IncomingOutgoing IncomingOutgoing { get; set; } = IncomingOutgoing.Incoming;
     public string Payload { get; set; } = default!;
-    
-    /*
-    public string? _requestDetails { get; set; }
-    public RequestDetails? RequestDetails
-    {
-        get { return _requestDetails == null ? null : JsonSerializer.Deserialize<RequestDetails>(_requestDetails); }
-        set { _requestDetails = JsonSerializer.Serialize(value); }
-    }
-    */
+    public List<Message>? Messages { get; set; }
 }

@@ -12,4 +12,5 @@ public class Message : BaseEntity, IAggregateRoot
     public DateTime? MessageTimestamp { get; set; }
     public JsonDocument? MessageContents { get; set; }
     public JsonDocument? TransmissionDetails { get; set; }
+    public List<PayloadContent>? PayloadContents { get; set; }
 }
