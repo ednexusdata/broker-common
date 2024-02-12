@@ -99,7 +99,19 @@ public class ConnectorLoader
                 var fileInfo = new FileInfo(assemblyFilePath);
                 if (fileInfo.Extension == ".dll")
                 {
-                    Assembly.LoadFrom(assemblyFilePath);
+                    // if (AppDomain.CurrentDomain.GetAssemblies().Where(x => String.Equals(x.Location, assemblyFilePath, StringComparison.OrdinalIgnoreCase)).Count() == 0)
+                    // {
+                    //     Assembly.LoadFrom(assemblyFilePath);
+                    // }
+                    
+                    try
+                    {
+                        Assembly.LoadFrom(assemblyFilePath);
+                    }
+                    catch (System.IO.FileLoadException _)
+                    {
+
+                    }
                 }
             }
         }
