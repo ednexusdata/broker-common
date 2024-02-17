@@ -12,6 +12,8 @@ public class ConnectorLoader
     public List<Type> Payloads { get; private set; } = new List<Type>();
     public List<Type> ContentTypes { get; private set; } = new List<Type>();
 
+    public Dictionary<string, Type> Transformers { get; private set; } = new Dictionary<string, Type>();
+
     public Dictionary<string, Assembly> Assemblies { get; private set; } = new Dictionary<string, Assembly>();
 
     public Dictionary<string, string> ConnectorIndex { get; private set; } = new Dictionary<string, string>();
@@ -35,6 +37,7 @@ public class ConnectorLoader
             LoadConfigurations();
             LoadPayloads();
             LoadContentTypes();
+            LoadTransfomers();
         }
     }
 
@@ -108,7 +111,7 @@ public class ConnectorLoader
                     {
                         Assembly.LoadFrom(assemblyFilePath);
                     }
-                    catch (System.IO.FileLoadException _)
+                    catch (FileLoadException)
                     {
 
                     }
@@ -163,6 +166,29 @@ public class ConnectorLoader
                     ContentTypes.Add(contentType);
                 
                     _logger.LogInformation($"ContentType loaded: {contentType.FullName} from {contentType.AssemblyQualifiedName}");
+                }
+            }
+        }
+    }
+
+    private void LoadTransfomers()
+    {
+        foreach(var connector in Connectors)
+        {
+            var transformers = connector.Assembly.GetExportedTypes().Where(p => p.GetInterface("ITransformer`2") is not null && p.IsAbstract == false);
+            if (transformers.Count() > 0)
+            {
+                foreach(var transformer in transformers)
+                {
+                    var mapsFroms = transformer.GetCustomAttributes(false).Where(x => x.GetType() == typeof(MapsFromAttribute)).ToList();
+                    foreach(var mapsFrom in mapsFroms)
+                    {
+                        var convMapsFrom = (MapsFromAttribute)mapsFrom;
+                        Transformers.Add($"{convMapsFrom.Schema}::{convMapsFrom.SchemaVersion}", transformer);
+
+                        _logger.LogInformation($"Transformer loaded: {convMapsFrom.Schema}::{convMapsFrom.SchemaVersion} from {transformer.AssemblyQualifiedName}");
+                    }
+                    
                 }
             }
         }

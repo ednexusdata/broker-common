@@ -6,7 +6,7 @@ public class RequestsReadyForProcessing : Specification<Request>, ISingleResultS
 {
   public RequestsReadyForProcessing()
   {
-    var requestStatuses = new RequestStatus[] { RequestStatus.WaitingToSend, RequestStatus.WaitingToLoad, RequestStatus.WaitingToImport };
+    var requestStatuses = new RequestStatus[] { RequestStatus.WaitingToSend, RequestStatus.WaitingToLoad, RequestStatus.WaitingToPrepare, RequestStatus.WaitingToImport };
 
     Query
         .Include(i => i.EducationOrganization)

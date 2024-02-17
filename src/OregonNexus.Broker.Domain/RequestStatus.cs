@@ -43,6 +43,15 @@ public enum RequestStatus
     [Description("Loaded")]
     Loaded,
 
+    [Description("Waiting to Prepare")]
+    WaitingToPrepare,
+
+    [Description("Preparing")]
+    Preparing,
+
+    [Description("Prepared")]
+    Prepared,
+
     [Description("Waiting to Import")]
     WaitingToImport,
 
