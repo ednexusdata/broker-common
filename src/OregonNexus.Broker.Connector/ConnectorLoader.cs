@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using OregonNexus.Broker.Connector.Attributes;
 using OregonNexus.Broker.Connector.Payload;
 using OregonNexus.Broker.Connector.PayloadContentTypes;
 
@@ -13,6 +14,8 @@ public class ConnectorLoader
     public List<Type> ContentTypes { get; private set; } = new List<Type>();
 
     public Dictionary<string, Type> Transformers { get; private set; } = new Dictionary<string, Type>();
+
+    public Dictionary<Type, Type> Importers { get; private set; } = new Dictionary<Type, Type>();
 
     public Dictionary<string, Assembly> Assemblies { get; private set; } = new Dictionary<string, Assembly>();
 
@@ -38,6 +41,7 @@ public class ConnectorLoader
             LoadPayloads();
             LoadContentTypes();
             LoadTransfomers();
+            LoadImporters();
         }
     }
 
@@ -187,6 +191,34 @@ public class ConnectorLoader
                         Transformers.Add($"{convMapsFrom.Schema}::{convMapsFrom.SchemaVersion}", transformer);
 
                         _logger.LogInformation($"Transformer loaded: {convMapsFrom.Schema}::{convMapsFrom.SchemaVersion} from {transformer.AssemblyQualifiedName}");
+                    }
+                    
+                }
+            }
+        }
+    }
+
+    private void LoadImporters()
+    {
+        foreach(var connector in Connectors)
+        {
+            var importers = connector.Assembly.GetExportedTypes().Where(p => p.GetInterface("IImporter") is not null && p.IsAbstract == false);
+            if (importers.Count() > 0)
+            {
+                foreach(var importer in importers)
+                {
+                    var imports = importer.GetCustomAttributes(false).Where(x => x.GetType() == typeof(ImportsAttribute)).ToList();
+                    foreach(var import in imports)
+                    {
+                        var convImport = (ImportsAttribute)import;
+
+                        foreach(var convImportType in convImport.Types)
+                        {
+                            Importers.Add(convImportType, importer);
+                            
+                            _logger.LogInformation($"Importer loaded: {convImportType.FullName} from {importer.AssemblyQualifiedName}");
+                        }
+                        
                     }
                     
                 }
