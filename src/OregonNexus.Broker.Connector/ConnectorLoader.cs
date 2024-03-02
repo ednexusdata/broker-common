@@ -188,9 +188,9 @@ public class ConnectorLoader
                     foreach(var mapsFrom in mapsFroms)
                     {
                         var convMapsFrom = (MapsFromAttribute)mapsFrom;
-                        Transformers.Add($"{convMapsFrom.Schema}::{convMapsFrom.SchemaVersion}", transformer);
+                        Transformers.Add($"{transformer.Assembly.GetName().Name}::{convMapsFrom.Schema}::{convMapsFrom.SchemaVersion}", transformer);
 
-                        _logger.LogInformation($"Transformer loaded: {convMapsFrom.Schema}::{convMapsFrom.SchemaVersion} from {transformer.AssemblyQualifiedName}");
+                        _logger.LogInformation($"Transformer loaded: {transformer.Assembly.GetName().Name}::{convMapsFrom.Schema}::{convMapsFrom.SchemaVersion} from {transformer.AssemblyQualifiedName}");
                     }
                     
                 }
