@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OregonNexus.Broker.Connector.Attributes;
+using OregonNexus.Broker.Connector.Authentication;
 using OregonNexus.Broker.Connector.Payload;
 using OregonNexus.Broker.Connector.PayloadContentTypes;
 
@@ -10,6 +11,7 @@ namespace OregonNexus.Broker.Connector;
 public class ConnectorLoader
 {
     public List<Type> Connectors { get; private set; } = new List<Type>();
+    public List<Type> Authenticators { get; private set; } = new List<Type>();
     public List<Type> Payloads { get; private set; } = new List<Type>();
     public List<Type> ContentTypes { get; private set; } = new List<Type>();
 
@@ -21,6 +23,7 @@ public class ConnectorLoader
 
     public Dictionary<string, string> ConnectorIndex { get; private set; } = new Dictionary<string, string>();
     public Dictionary<string, string> ConfigurationIndex { get; private set; } = new Dictionary<string, string>();
+    public Dictionary<string, string> AuthenticationIndex { get; private set; } = new Dictionary<string, string>();
     
 
     public bool IsLoaded { get; set; } = false;
@@ -42,6 +45,7 @@ public class ConnectorLoader
             LoadContentTypes();
             LoadTransfomers();
             LoadImporters();
+            LoadAuthenticators();
         }
     }
 
@@ -49,6 +53,12 @@ public class ConnectorLoader
     {
         return Connectors.Where(x => x.GetInterface(nameof(IConnector)) is not null && x.FullName == connectorType).FirstOrDefault();
     }
+
+    public Type? GetAuthenticator(string authenticationType)
+    {
+        return Authenticators.Where(x => x.GetInterface(nameof(IAuthenticationProvider)) is not null && x.FullName == authenticationType).FirstOrDefault();
+    }
+
 
     public List<Type>? GetConfigurations(Assembly assembly)
     {
@@ -153,6 +163,21 @@ public class ConnectorLoader
                 foreach(var config in configurations)
                 {
                     ConfigurationIndex.Add(config.FullName!, connector.AssemblyQualifiedName!);
+                }
+            }
+        }
+    }
+
+    private void LoadAuthenticators()
+    {
+        foreach(var connector in Connectors)
+        {
+            var authenticators = connector.Assembly.GetExportedTypes().Where(p => p.GetInterface(nameof(IAuthenticationProvider)) is not null);
+            if (authenticators.Count() > 0)
+            {
+                foreach(var config in authenticators)
+                {
+                    Authenticators.Add(config);
                 }
             }
         }
