@@ -1,0 +1,36 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: EdNexusData.Broker.SharedKernel - Restore dependencies
+      run: dotnet restore
+      working-directory: src/EdNexusData.Broker.SharedKernel/
+    - name: EdNexusData.Broker.SharedKernel - Build
+      run: dotnet build --no-restore
+      working-directory: src/EdNexusData.Broker.SharedKernel/
+    - name: EdNexusData.Broker.SharedKernel - Test
+      run: dotnet test --no-build --verbosity normal
+      working-directory: src/EdNexusData.Broker.SharedKernel/
+    - name: EdNexusData.Broker.SharedKernel - Upload a Build Artifact
+      uses: actions/upload-artifact@v4.3.1
+      with:
+        name: EdNexusData.Broker.SharedKernel
+        path: src/EdNexusData.Broker.SharedKernel/bin/**/*
