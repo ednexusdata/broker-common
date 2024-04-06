@@ -33,4 +33,32 @@ jobs:
       uses: actions/upload-artifact@v4.3.1
       with:
         name: EdNexusData.Broker.SharedKernel
-        path: src/EdNexusData.Broker.SharedKernel/bin/**/*
+        path: src/EdNexusData.Broker.SharedKernel/bin/Debug/net8.0/**/*
+    - name: EdNexusData.Broker.Domain - Restore dependencies
+      run: dotnet restore
+      working-directory: src/EdNexusData.Broker.Domain/
+    - name: EdNexusData.Broker.Domain - Build
+      run: dotnet build --no-restore
+      working-directory: src/EdNexusData.Broker.Domain/
+    - name: EdNexusData.Broker.Domain - Test
+      run: dotnet test --no-build --verbosity normal
+      working-directory: src/EdNexusData.Broker.Domain/
+    - name: EdNexusData.Broker.Domain - Upload a Build Artifact
+      uses: actions/upload-artifact@v4.3.1
+      with:
+        name: EdNexusData.Broker.Domain
+        path: src/EdNexusData.Broker.Domain/bin/Debug/net8.0/**/*
+    - name: EdNexusData.Broker.Connector - Restore dependencies
+      run: dotnet restore
+      working-directory: src/EdNexusData.Broker.Connector/
+    - name: EdNexusData.Broker.Connector - Build
+      run: dotnet build --no-restore
+      working-directory: src/EdNexusData.Broker.Connector/
+    - name: EdNexusData.Broker.Connector - Test
+      run: dotnet test --no-build --verbosity normal
+      working-directory: src/EdNexusData.Broker.Connector/
+    - name: EdNexusData.Broker.Connector - Upload a Build Artifact
+      uses: actions/upload-artifact@v4.3.1
+      with:
+        name: EdNexusData.Broker.Connector
+        path: src/EdNexusData.Broker.Connector/bin/Debug/net8.0/**/*
