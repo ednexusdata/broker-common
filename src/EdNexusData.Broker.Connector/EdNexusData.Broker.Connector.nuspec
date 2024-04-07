@@ -9,6 +9,13 @@
     <description>Broker Connector</description>
     <dependencies>
       <group targetFramework="net8.0" />
+      <dependency id="Microsoft.AspNetCore.Mvc" version="2.2.0" />
+      <dependency id="Microsoft.Extensions.DependencyInjection" version="8.*" />
+      <dependency id="Microsoft.Extensions.Logging.Console" version="8.*" />
+      <dependency id="Ardalis.GuardClauses" version="4.0.1" />
+      <dependency id="Ardalis.Result" version="4.1.0" />
+      <dependency id="Ardalis.Specification" version="6.1.0" />
+      <dependency id="MediatR" version="11.1.0" />
     </dependencies>
   </metadata>
    <files>
