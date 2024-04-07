@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <NuspecFile>EdNexusData.Broker.Connector.nuspec</NuspecFile>
+    <NuspecProperties>version=$(version)</NuspecProperties>
   </PropertyGroup>
 
   <ItemGroup>

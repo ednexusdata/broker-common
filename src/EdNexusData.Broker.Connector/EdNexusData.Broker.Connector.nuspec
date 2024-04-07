@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>EdNexusData.Broker.Connector</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Makoa Jacobsen</authors>
+    <owners>Makoa Jacobsen</owners>
+    <description>Broker Connector</description>
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+   <files>
+     <file src="bin\Release\net8.0\EdNexusData.Broker.*.dll" target="lib\net8.0" />
+  </files>
+</package>
