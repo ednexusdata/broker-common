@@ -63,7 +63,7 @@ jobs:
         name: EdNexusData.Broker.Connector
         path: src/EdNexusData.Broker.Connector/bin/Debug/net8.0/**/*
     - name: EdNexusData.Broker.Connector - Package
-      run: dotnet pack -c Release -o pack/ /p:Version=0.1.$RUN_NUMBER
+      run: dotnet pack -c Release -o pack/ -property:version=0.1.$RUN_NUMBER
       env: 
         RUN_NUMBER: ${{ github.run_number }}
       working-directory: src/EdNexusData.Broker.Connector/
