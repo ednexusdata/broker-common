@@ -63,7 +63,7 @@ jobs:
         name: EdNexusData.Broker.Connector
         path: src/EdNexusData.Broker.Connector/bin/Debug/net8.0/**/*
     - name: EdNexusData.Broker.Connector - Package
-      run: dotnet pack -c Release -o pack/ -property:version=0.1.$RUN_NUMBER
+      run: dotnet pack -c Release -o "pack/" -property:version=0.1.$RUN_NUMBER
       env: 
         RUN_NUMBER: ${{ github.run_number }}
       working-directory: src/EdNexusData.Broker.Connector/
@@ -72,3 +72,8 @@ jobs:
       with:
         name: EdNexusData.Broker.Connector.nupkg
         path: src/EdNexusData.Broker.Connector/pack/**/*
+    - name: EdNexusData.Broker.Connector - Add Package Source
+      run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ednexusdata/index.json"
+      working-directory: src/EdNexusData.Broker.Connector/
+    - name: EdNexusData.Broker.Connector - Publish Package
+      run: dotnet nuget push "pack/EdNexusData.Broker.Connector.0.1.$RUN_NUMBER.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
