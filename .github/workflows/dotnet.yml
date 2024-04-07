@@ -77,4 +77,6 @@ jobs:
       working-directory: src/EdNexusData.Broker.Connector/
     - name: EdNexusData.Broker.Connector - Publish Package
       run: dotnet nuget push "pack/EdNexusData.Broker.Connector.0.1.$RUN_NUMBER.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+      env: 
+        RUN_NUMBER: ${{ github.run_number }}
       working-directory: src/EdNexusData.Broker.Connector/
