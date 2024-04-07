@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <NuspecFile>EdNexusData.Broker.Connector.nuspec</NuspecFile>
     <NuspecProperties>version=$(version)</NuspecProperties>
+    <PackageDescription>Broker Connector Library</PackageDescription>
+    <RepositoryUrl>https://github.com/ednexusdata/broker-core</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
