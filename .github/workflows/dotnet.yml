@@ -63,9 +63,10 @@ jobs:
         name: EdNexusData.Broker.Connector
         path: src/EdNexusData.Broker.Connector/bin/Debug/net8.0/**/*
     - name: EdNexusData.Broker.Connector - Package
-      run: dotnet pack -c Release -o "pack/" -property:version=0.1.$RUN_NUMBER
+      run: dotnet pack -c Release -o "pack/" -property:version=0.1.$RUN_NUMBER -property:commit=$COMMIT
       env: 
         RUN_NUMBER: ${{ github.run_number }}
+        COMMIT: ${{ github.sha }}
       working-directory: src/EdNexusData.Broker.Connector/
     - name: EdNexusData.Broker.Connector - Upload package
       uses: actions/upload-artifact@v4.3.1
