@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Set current date as env variable
-      run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      run: echo "NOW=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
     - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -65,7 +65,7 @@ jobs:
         name: EdNexusData.Broker.Connector
         path: src/EdNexusData.Broker.Connector/bin/Debug/net8.0/**/*
     - name: EdNexusData.Broker.Connector - Package
-      run: dotnet pack -c Release -o pack/ /p:Version=0.0.$NOW
+      run: dotnet pack -c Release -o pack/ /p:Version=0.1.$NOW
       working-directory: src/EdNexusData.Broker.Connector/
     - name: EdNexusData.Broker.Connector - Upload package
       uses: actions/upload-artifact@v4.3.1
