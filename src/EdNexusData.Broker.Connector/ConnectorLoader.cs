@@ -1,10 +1,9 @@
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using EdNexusData.Broker.Connector.Attributes;
 using EdNexusData.Broker.Connector.Authentication;
-using EdNexusData.Broker.Connector.Payload;
-using EdNexusData.Broker.Connector.PayloadContentTypes;
+using EdNexusData.Broker.Connector.Payloads;
+using EdNexusData.Broker.Connector.Payload.Jobs;
 
 namespace EdNexusData.Broker.Connector;
 
@@ -13,7 +12,7 @@ public class ConnectorLoader
     public List<Type> Connectors { get; private set; } = new List<Type>();
     public List<Type> Authenticators { get; private set; } = new List<Type>();
     public List<Type> Payloads { get; private set; } = new List<Type>();
-    public List<Type> ContentTypes { get; private set; } = new List<Type>();
+    public List<Type> PayloadJobs { get; private set; } = new List<Type>();
 
     public Dictionary<string, Type> Transformers { get; private set; } = new Dictionary<string, Type>();
 
@@ -42,7 +41,7 @@ public class ConnectorLoader
             LoadConnectorAssemblies();
             LoadConfigurations();
             LoadPayloads();
-            LoadContentTypes();
+            LoadPayloadJobs();
             LoadTransfomers();
             LoadImporters();
             LoadAuthenticators();
@@ -70,9 +69,9 @@ public class ConnectorLoader
         return assembly.GetExportedTypes().Where(x => x.GetInterface(nameof(IPayload)) is not null && x.IsAbstract == false).ToList();
     }
 
-    public List<Type>? GetContentTypes()
+    public List<Type>? GetPayloadJobs()
     {
-        return ContentTypes;
+        return PayloadJobs;
     }
 
     private void LoadPayloads()
@@ -183,18 +182,18 @@ public class ConnectorLoader
         }
     }
 
-    private void LoadContentTypes()
+    private void LoadPayloadJobs()
     {
         foreach(var connector in Connectors)
         {
-            var contentTypes = connector.Assembly.GetExportedTypes().Where(p => p.IsAssignableTo(typeof(PayloadContentType)) && p.IsAbstract == false);
-            if (contentTypes.Count() > 0)
+            var payloadJobs = connector.Assembly.GetExportedTypes().Where(p => p.IsAssignableTo(typeof(IPayloadJob)) && p.IsAbstract == false);
+            if (payloadJobs.Count() > 0)
             {
-                foreach(var contentType in contentTypes)
+                foreach(var payloadJob in payloadJobs)
                 {
-                    ContentTypes.Add(contentType);
+                    PayloadJobs.Add(payloadJob);
                 
-                    _logger.LogInformation($"ContentType loaded: {contentType.FullName} from {contentType.AssemblyQualifiedName}");
+                    _logger.LogInformation($"IPayloadJob loaded: {payloadJob.FullName} from {payloadJob.AssemblyQualifiedName}");
                 }
             }
         }

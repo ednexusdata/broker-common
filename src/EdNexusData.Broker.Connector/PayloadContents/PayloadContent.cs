@@ -1,7 +1,8 @@
-using EdNexusData.Broker.Connector.PayloadContentTypes;
-
-namespace EdNexusData.Broker.Connector.PayloadContents;
+namespace EdNexusData.Broker.Connector.Payload.Contents;
 
 public abstract class PayloadContent
-{   
+{
+    public object? Content { get; set; }
+    
+    public bool AllowMultiple = false;
 }
