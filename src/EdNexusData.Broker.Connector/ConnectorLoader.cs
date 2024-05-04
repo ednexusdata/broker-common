@@ -2,8 +2,6 @@ using System.Reflection;
 using Microsoft.Extensions.Logging;
 using EdNexusData.Broker.Connector.Attributes;
 using EdNexusData.Broker.Connector.Authentication;
-using EdNexusData.Broker.Connector.Payloads;
-using EdNexusData.Broker.Connector.Payload.Jobs;
 
 namespace EdNexusData.Broker.Connector;
 
@@ -66,7 +64,7 @@ public class ConnectorLoader
 
     public List<Type>? GetPayloads(Assembly assembly)
     {
-        return assembly.GetExportedTypes().Where(x => x.GetInterface(nameof(IPayload)) is not null && x.IsAbstract == false).ToList();
+        return assembly.GetExportedTypes().Where(x => x.GetInterface(nameof(Payload)) is not null && x.IsAbstract == false).ToList();
     }
 
     public List<Type>? GetPayloadJobs()
@@ -78,11 +76,11 @@ public class ConnectorLoader
     {
         var types = AppDomain.CurrentDomain.GetAssemblies()
                         .SelectMany(s => s.GetExportedTypes())
-                        .Where(p => p.GetInterface(nameof(IPayload)) is not null);
+                        .Where(p => p.GetInterface(nameof(Payload)) is not null);
 
         foreach(var type in types)
         {
-            if (type.GetInterface(nameof(IPayload)) is not null && type.IsAbstract == false && type.Assembly.GetName().Name == "EdNexusData.Broker.Connector")
+            if (type.GetInterface(nameof(Payload)) is not null && type.IsAbstract == false && type.Assembly.GetName().Name == "EdNexusData.Broker.Connector")
             {
                 Payloads.Add(type);
                 
@@ -186,7 +184,7 @@ public class ConnectorLoader
     {
         foreach(var connector in Connectors)
         {
-            var payloadJobs = connector.Assembly.GetExportedTypes().Where(p => p.IsAssignableTo(typeof(IPayloadJob)) && p.IsAbstract == false);
+            var payloadJobs = connector.Assembly.GetExportedTypes().Where(p => p.IsAssignableTo(typeof(PayloadJob)) && p.IsAbstract == false);
             if (payloadJobs.Count() > 0)
             {
                 foreach(var payloadJob in payloadJobs)
