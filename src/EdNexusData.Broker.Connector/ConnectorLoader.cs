@@ -76,11 +76,11 @@ public class ConnectorLoader
     {
         var types = AppDomain.CurrentDomain.GetAssemblies()
                         .SelectMany(s => s.GetExportedTypes())
-                        .Where(p => p.GetInterface(nameof(Payload)) is not null);
+                        .Where(p => p.IsSubclassOf(typeof(Payload)));
 
         foreach(var type in types)
         {
-            if (type.GetInterface(nameof(Payload)) is not null && type.IsAbstract == false && type.Assembly.GetName().Name == "EdNexusData.Broker.Connector")
+            if (type.IsAbstract == false && type.Assembly.GetName().Name == "EdNexusData.Broker.Connector") 
             {
                 Payloads.Add(type);
                 
