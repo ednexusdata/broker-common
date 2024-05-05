@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace EdNexusData.Broker.Connector;
 
 public abstract class PayloadJob
@@ -6,5 +8,5 @@ public abstract class PayloadJob
     
     public static bool AllowMultiple = false;
     
-    public abstract Task<object?> ExecuteAsync(string studentUniqueId, object? configuration);
+    public abstract Task<object?> ExecuteAsync(string studentUniqueId, JsonDocument? configuration);
 }
