@@ -6,5 +6,5 @@ public abstract class PayloadJob
     
     public static bool AllowMultiple = false;
     
-    public abstract Task<object?> ExecuteAsync(string studentUniqueId);
+    public abstract Task<object?> ExecuteAsync(string studentUniqueId, object? configuration);
 }
