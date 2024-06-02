@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.Logging;
 using EdNexusData.Broker.Connector.Attributes;
 using EdNexusData.Broker.Connector.Authentication;
+using EdNexusData.Broker.Connector.PayloadContentActions;
 
 namespace EdNexusData.Broker.Connector;
 
@@ -11,6 +12,7 @@ public class ConnectorLoader
     public List<Type> Authenticators { get; private set; } = new List<Type>();
     public List<Type> Payloads { get; private set; } = new List<Type>();
     public List<Type> PayloadJobs { get; private set; } = new List<Type>();
+    public List<Type> PayloadContentActions { get; private set; } = new List<Type>();
 
     public Dictionary<string, Type> Transformers { get; private set; } = new Dictionary<string, Type>();
 
@@ -40,6 +42,7 @@ public class ConnectorLoader
             LoadConfigurations();
             LoadPayloads();
             LoadPayloadJobs();
+            LoadPayloadContentActions();
             LoadTransfomers();
             LoadImporters();
             LoadAuthenticators();
@@ -72,6 +75,11 @@ public class ConnectorLoader
         return PayloadJobs;
     }
 
+    public List<Type>? GetPayloadContentActions()
+    {
+        return PayloadContentActions;
+    }
+
     private void LoadPayloads()
     {
         var types = AppDomain.CurrentDomain.GetAssemblies()
@@ -93,7 +101,7 @@ public class ConnectorLoader
     {
         IsLoaded = true;
 
-        var connectorAssemblyPaths = Directory.GetDirectories($"{System.AppDomain.CurrentDomain.BaseDirectory}connectors");
+        var connectorAssemblyPaths = Directory.GetDirectories($"{AppDomain.CurrentDomain.BaseDirectory}connectors");
         if (connectorAssemblyPaths.Length == 0)
         {
             _logger.LogInformation($"No connectors loaded from paths: {connectorAssemblyPaths}");
@@ -102,13 +110,13 @@ public class ConnectorLoader
 
         foreach(var assemblyPath in connectorAssemblyPaths)
         {
-            if (String.IsNullOrEmpty(assemblyPath)) return;
+            if (string.IsNullOrEmpty(assemblyPath)) return;
 
             var connectorAssemblyFiles = Directory.GetFiles(assemblyPath);
 
             foreach(var assemblyFilePath in connectorAssemblyFiles)
             {
-                if (String.IsNullOrEmpty(assemblyFilePath)) return;
+                if (string.IsNullOrEmpty(assemblyFilePath)) return;
 
                 var fileInfo = new FileInfo(assemblyFilePath);
                 if (fileInfo.Extension == ".dll")
@@ -192,6 +200,26 @@ public class ConnectorLoader
                     PayloadJobs.Add(payloadJob);
                 
                     _logger.LogInformation($"IPayloadJob loaded: {payloadJob.FullName} from {payloadJob.AssemblyQualifiedName}");
+                }
+            }
+        }
+    }
+
+    private void LoadPayloadContentActions()
+    {
+        PayloadContentActions.Add(typeof(IgnorePayloadContentAction));
+        _logger.LogInformation($"IPayloadContentAction loaded: {typeof(IgnorePayloadContentAction).FullName} from {typeof(IgnorePayloadContentAction).AssemblyQualifiedName}");
+        
+        foreach(var connector in Connectors)
+        {
+            var payloadContentActions = connector.Assembly.GetExportedTypes().Where(p => p.GetInterface(nameof(IPayloadContentAction)) is not null);
+            if (payloadContentActions.Count() > 0)
+            {
+                foreach(var payloadContentAction in payloadContentActions)
+                {
+                    PayloadContentActions.Add(payloadContentAction);
+                
+                    _logger.LogInformation($"IPayloadContentAction loaded: {payloadContentAction.FullName} from {payloadContentAction.AssemblyQualifiedName}");
                 }
             }
         }

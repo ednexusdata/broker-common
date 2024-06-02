@@ -16,4 +16,6 @@ public class MappingRecord
         }
     }
     public string? BrokerOriginalId { get; set; }
+
+    public MappingRecordAction BrokerMappingRecordAction { get; set; } = MappingRecordAction.Import;
 }
