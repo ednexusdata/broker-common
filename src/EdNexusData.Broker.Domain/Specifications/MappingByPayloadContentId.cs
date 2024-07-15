@@ -7,7 +7,8 @@ public class MappingByPayloadContentId : Specification<Mapping>, ISingleResultSp
   public MappingByPayloadContentId(Guid payloadContentId)
   {
     Query
-        .Where(req => req.PayloadContentId == payloadContentId)
+        .Include(x => x.Action)
+        .Where(req => req.Action!.PayloadContentId == payloadContentId)
         .OrderBy(x => x.MappingType);
   }
 }

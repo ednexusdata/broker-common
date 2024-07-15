@@ -207,8 +207,8 @@ public class ConnectorLoader
 
     private void LoadPayloadContentActions()
     {
-        PayloadContentActions.Add(typeof(IgnorePayloadContentAction));
-        _logger.LogInformation($"IPayloadContentAction loaded: {typeof(IgnorePayloadContentAction).FullName} from {typeof(IgnorePayloadContentAction).AssemblyQualifiedName}");
+        // PayloadContentActions.Add(typeof(IgnorePayloadContentAction));
+        // _logger.LogInformation($"IPayloadContentAction loaded: {typeof(IgnorePayloadContentAction).FullName} from {typeof(IgnorePayloadContentAction).AssemblyQualifiedName}");
         
         foreach(var connector in Connectors)
         {

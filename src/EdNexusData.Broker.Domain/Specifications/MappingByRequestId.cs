@@ -7,9 +7,10 @@ public class MappingByRequestId : Specification<Mapping>, ISingleResultSpecifica
   public MappingByRequestId(Guid RequestId)
   {
     Query
-        .Include(x => x.PayloadContent)
-        .ThenInclude(x => x.Request)
-        .Where(y => y.PayloadContent!.RequestId == RequestId)
+        .Include(x => x.Action)
+        .ThenInclude(x => x!.PayloadContent)
+        .ThenInclude(x => x!.Request)
+        .Where(y => y.Action!.PayloadContent!.RequestId == RequestId)
         .OrderBy(x => x.MappingType);
   }
 }
