@@ -11,7 +11,7 @@ public class RequestByIdWithMessagesPayloadContents : Specification<Request>, IS
         .Include(x => x.EducationOrganization!.ParentOrganization)
         .Include(x => x.Messages!.OrderByDescending(y => y.MessageTimestamp))!
         .ThenInclude(x => x.PayloadContents!.OrderBy(y => y.FileName))
-        .ThenInclude(x => x.Actions)
+        .ThenInclude(x => x.PayloadContentActions)
         .Where(req => req.Id == requestId);
   }
 }

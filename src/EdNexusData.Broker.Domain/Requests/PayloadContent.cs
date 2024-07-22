@@ -17,5 +17,5 @@ public class PayloadContent : BaseEntity, IAggregateRoot
     public byte[]? BlobContent { get; set; }
     public JsonDocument? JsonContent { get; set; }
     public XElement? XmlContent { get; set; }
-    public List<Action>? Actions { get; set; }
+    public List<PayloadContentAction>? PayloadContentActions { get; set; }
 }

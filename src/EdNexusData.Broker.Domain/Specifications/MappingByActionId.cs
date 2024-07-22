@@ -7,9 +7,9 @@ public class MappingByActionId : Specification<Mapping>, ISingleResultSpecificat
   public MappingByActionId(Guid actionId)
   {
     Query
-        .Include(x => x.Action)
+        .Include(x => x.PayloadContentAction)
         .ThenInclude(x => x!.PayloadContent)
-        .Where(req => req.ActionId == actionId)
+        .Where(req => req.PayloadContentActionId == actionId)
         .OrderBy(x => x.MappingType);
   }
 }

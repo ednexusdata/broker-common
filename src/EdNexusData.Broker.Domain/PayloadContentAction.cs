@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace EdNexusData.Broker.Domain;
 
-public class Action : BaseEntity, IAggregateRoot
+public class PayloadContentAction : BaseEntity, IAggregateRoot
 {
     public Guid? PayloadContentId { get; set; }
     public PayloadContent? PayloadContent { get; set; }

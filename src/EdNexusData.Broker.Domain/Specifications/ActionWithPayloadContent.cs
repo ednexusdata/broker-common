@@ -3,7 +3,7 @@ using EdNexusData.Broker.Domain.Worker;
 
 namespace EdNexusData.Broker.Domain.Specifications;
 
-public class ActionWithPayloadContent : Specification<Action>, ISingleResultSpecification
+public class ActionWithPayloadContent : Specification<PayloadContentAction>, ISingleResultSpecification
 {
   public ActionWithPayloadContent(Guid actionid)
   {

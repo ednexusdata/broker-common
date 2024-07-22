@@ -7,7 +7,7 @@ public class MappingWithPayloadContent : Specification<Mapping>, ISingleResultSp
   public MappingWithPayloadContent(Guid id)
   {
     Query
-        .Include(x => x.Action)
+        .Include(x => x.PayloadContentAction)
         .ThenInclude(x => x!.PayloadContent)
         .ThenInclude(x => x!.Request)
         .Where(x => x.Id == id);
