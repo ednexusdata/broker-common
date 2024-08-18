@@ -15,4 +15,21 @@ public class Mapping : BaseEntity, IAggregateRoot
     public JsonDocument? JsonInitialMapping { get; set; }
     public JsonDocument? JsonDestinationMapping { get; set; }
     public byte Version { get; set; } = 1;
+
+    public int? ReceviedCount { 
+        get {
+            return JsonSourceMapping?.RootElement.EnumerateArray().Count();
+        } 
+    }
+    public int? IgnoredCount {  
+        get {
+            return JsonDestinationMapping?.RootElement.EnumerateArray().Where(x => x.GetProperty("BrokerMappingRecordAction").GetUInt16() == (int)MappingRecordAction.Ignore).Count();
+        }
+    }
+    public int? MappedCount {
+        get {
+            return JsonDestinationMapping?.RootElement.EnumerateArray().Where(x => x.GetProperty("BrokerMappingRecordAction").GetUInt16() == (int)MappingRecordAction.Import).Count();
+        }
+    }
+    public int? RemainingCount { get { return ReceviedCount - IgnoredCount - MappedCount; } }
 }
