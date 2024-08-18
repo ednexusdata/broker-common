@@ -12,6 +12,7 @@ public class Mapping : BaseEntity, IAggregateRoot
     public string? MappingType { get; set; }
     public StudentAttributes? StudentAttributes { get; set; }
     public JsonDocument? JsonSourceMapping { get; set; }
+    public JsonDocument? JsonInitialMapping { get; set; }
     public JsonDocument? JsonDestinationMapping { get; set; }
     public byte Version { get; set; } = 1;
 }
