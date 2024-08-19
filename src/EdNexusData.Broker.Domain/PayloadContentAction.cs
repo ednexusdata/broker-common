@@ -12,4 +12,6 @@ public class PayloadContentAction : BaseEntity, IAggregateRoot
     public JsonDocument? Settings { get; set; }
     public bool Process { get; set; } = false;
     public List<Mapping>? Mappings { get; set; }
+    public PayloadContentActionStatus PayloadContentActionStatus { get; set; } = PayloadContentActionStatus.Ready;
+    public string? ProcessState {get; set; }
 }
