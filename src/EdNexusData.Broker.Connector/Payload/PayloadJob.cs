@@ -7,12 +7,16 @@ public abstract class PayloadJob
     public static bool AllowConfiguration = false;
     
     public static bool AllowMultiple = false;
+
+    protected string? StudentUniqueId;
     
-    public abstract Task<(Status Status, JsonDocument? Resubmit)> StartAsync(string studentUniqueId, JsonDocument? configuration);
+    protected JsonDocument? Configuration;
 
-    public abstract Task<(Status Status, JsonDocument? Resubmit)> ContinueAsync(JsonDocument? resubmit, string? studentUniqueId, JsonDocument? configuration);
+    public abstract Task<Status> StartAsync(string studentUniqueId, JsonDocument? configuration);
 
-    public abstract Task<object?> FinishAsync(string studentUniqueId, JsonDocument? configuration);
+    public abstract Task<Status> ContinueAsync();
+
+    public abstract Task<object?> FinishAsync();
 
     public enum Status
     {
