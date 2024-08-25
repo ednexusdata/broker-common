@@ -17,6 +17,7 @@ public abstract class PayloadJob
     public enum Status
     {
         Continue,
+        ContinueLater,
         Finish
     }
 }
