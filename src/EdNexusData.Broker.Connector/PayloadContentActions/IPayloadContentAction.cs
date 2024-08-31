@@ -1,3 +1,4 @@
+using Ardalis.Result;
 using EdNexusData.Broker.Connector.Student;
 using EdNexusData.Broker.Domain;
 
@@ -7,7 +8,7 @@ public interface IPayloadContentAction
 {
     public static string DisplayName { get; } = default!;
     
-    public Task<bool> ExecuteAsync(object mapping, 
+    public Task<(bool, object)> ExecuteAsync(object mapping, 
         PayloadContentAction payloadContentAction, 
         IStudent student, 
         Domain.Student brokerStudent, 
