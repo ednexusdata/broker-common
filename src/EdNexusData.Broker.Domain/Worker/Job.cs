@@ -14,4 +14,5 @@ public class Job : BaseEntity, IAggregateRoot
     public JobStatus JobStatus { get; set; } = JobStatus.Waiting;
     public string? WorkerInstance { get; set; }
     public string? WorkerState { get; set; }
+    public string? WorkerLog { get; set; }
 }
