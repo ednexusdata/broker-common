@@ -10,6 +10,8 @@ public class User : BaseEntity, IAggregateRoot
     public bool IsSuperAdmin { get; set; } = false;
     public PermissionType AllEducationOrganizations { get; set; } = PermissionType.None;
 
+    public string? TimeZone { get; set; }
+
     public List<UserRole>? UserRoles { get; set; }
 
     public string Name { 

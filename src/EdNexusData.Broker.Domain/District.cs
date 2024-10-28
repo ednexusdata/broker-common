@@ -9,6 +9,7 @@ public class District
     public Address? Address { get; set; }
 
     public string? Domain { get; set; }
-
+    public string TimeZone { get; set; } = TimeZoneInfo.Local.Id;
+    
     public ICollection<School>? Schools { get; set; }
 }

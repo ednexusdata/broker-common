@@ -14,6 +14,7 @@ public class EducationOrganization : BaseEntity, IAggregateRoot
     public EducationOrganizationType EducationOrganizationType { get; set; } = EducationOrganizationType.District;
     public Address? Address { get; set; }
     public string? Domain { get; set; }
+    public string? TimeZone { get; set; }
     public List<EducationOrganizationContact>? Contacts { get; set; }
 
     public virtual ICollection<EducationOrganization>? EducationOrganizations { get; set; }
