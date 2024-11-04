@@ -14,9 +14,21 @@ public class User : BaseEntity, IAggregateRoot
 
     public List<UserRole>? UserRoles { get; set; }
 
-    public string Name { 
+    public string Name {
+        get {
+            return FirstLastName;
+        }
+    }
+
+    public string FirstLastName { 
         get {
             return $"{FirstName} {LastName}";
+        }
+    }
+
+    public string LastFirstName { 
+        get {
+            return $"{LastName}, {FirstName}";
         }
     }
 }
