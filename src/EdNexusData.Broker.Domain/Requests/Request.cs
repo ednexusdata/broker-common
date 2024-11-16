@@ -12,9 +12,11 @@ public class Request : BaseEntity, IAggregateRoot
     public StudentRequest? Student { get; set; }
     public Manifest? RequestManifest { get; set; }
     public Guid? RequestProcessUserId { get; set; }
+    public User? RequestProcessUser { get; set; }
     public DateTimeOffset? InitialRequestSentDate { get; set; }
     public Manifest? ResponseManifest { get; set; }
     public Guid? ResponseProcessUserId { get; set; }
+    public User? ResponseProcessUser { get; set; }
     public RequestStatus RequestStatus { get; set; } = RequestStatus.Draft;
     public string? ProcessState {get; set; }
     public string? WorkerInstance {get; set; }
