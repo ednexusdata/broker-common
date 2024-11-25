@@ -13,4 +13,5 @@ public class Message : BaseEntity, IAggregateRoot
     public JsonDocument? MessageContents { get; set; }
     public JsonDocument? TransmissionDetails { get; set; }
     public List<PayloadContent>? PayloadContents { get; set; }
+    public RequestStatus? RequestStatus { get; set; }
 }
