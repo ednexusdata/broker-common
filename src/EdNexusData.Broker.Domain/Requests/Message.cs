@@ -10,6 +10,8 @@ public class Message : BaseEntity, IAggregateRoot
     public Request? Request { get; set; }
     public RequestResponse RequestResponse { get; set; } = RequestResponse.Request;
     public DateTimeOffset? MessageTimestamp { get; set; }
+    public EducationOrganizationContact? Sender { get; set; }
+    public DateTimeOffset? SenderSentTimestamp { get; set; }
     public JsonDocument? MessageContents { get; set; }
     public JsonDocument? TransmissionDetails { get; set; }
     public List<PayloadContent>? PayloadContents { get; set; }

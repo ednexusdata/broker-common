@@ -19,6 +19,9 @@ public enum PayloadContentActionStatus
     [Description("Prepared")]
     Prepared,
 
+    [Description("Mapped")]
+    Mapped,
+
     [Description("Waiting to Import")]
     WaitingToImport,
 
