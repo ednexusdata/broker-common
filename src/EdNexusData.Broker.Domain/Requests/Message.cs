@@ -12,7 +12,7 @@ public class Message : BaseEntity, IAggregateRoot
     public DateTimeOffset? MessageTimestamp { get; set; }
     public EducationOrganizationContact? Sender { get; set; }
     public DateTimeOffset? SenderSentTimestamp { get; set; }
-    public JsonDocument? MessageContents { get; set; }
+    public MessageContents? MessageContents { get; set; }
     public JsonDocument? TransmissionDetails { get; set; }
     public List<PayloadContent>? PayloadContents { get; set; }
     public RequestStatus? RequestStatus { get; set; }

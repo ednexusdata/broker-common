@@ -15,4 +15,7 @@ public class Job : BaseEntity, IAggregateRoot
     public string? WorkerInstance { get; set; }
     public string? WorkerState { get; set; }
     public string? WorkerLog { get; set; }
+
+    public Guid? InitiatedUserId { get; set; }
+    public User? InitiatedUser { get; set; }
 }
