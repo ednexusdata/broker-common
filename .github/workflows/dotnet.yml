@@ -20,64 +20,36 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: EdNexusData.Broker.SharedKernel - Restore dependencies
+    - name: EdNexusData.Broker.Core - Restore dependencies
       run: dotnet restore
-      working-directory: src/EdNexusData.Broker.SharedKernel/
-    - name: EdNexusData.Broker.SharedKernel - Build
+      working-directory: src/EdNexusData.Broker.Core/
+    - name: EdNexusData.Broker.Core - Build
       run: dotnet build --no-restore
-      working-directory: src/EdNexusData.Broker.SharedKernel/
-    - name: EdNexusData.Broker.SharedKernel - Test
+      working-directory: src/EdNexusData.Broker.Core/
+    - name: EdNexusData.Broker.Core - Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: src/EdNexusData.Broker.SharedKernel/
-    - name: EdNexusData.Broker.SharedKernel - Upload a Build Artifact
+      working-directory: src/EdNexusData.Broker.Core/
+    - name: EdNexusData.Broker.Core - Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
-        name: EdNexusData.Broker.SharedKernel
-        path: src/EdNexusData.Broker.SharedKernel/bin/Debug/net8.0/**/*
-    - name: EdNexusData.Broker.Domain - Restore dependencies
-      run: dotnet restore
-      working-directory: src/EdNexusData.Broker.Domain/
-    - name: EdNexusData.Broker.Domain - Build
-      run: dotnet build --no-restore
-      working-directory: src/EdNexusData.Broker.Domain/
-    - name: EdNexusData.Broker.Domain - Test
-      run: dotnet test --no-build --verbosity normal
-      working-directory: src/EdNexusData.Broker.Domain/
-    - name: EdNexusData.Broker.Domain - Upload a Build Artifact
-      uses: actions/upload-artifact@v4.3.1
-      with:
-        name: EdNexusData.Broker.Domain
-        path: src/EdNexusData.Broker.Domain/bin/Debug/net8.0/**/*
-    - name: EdNexusData.Broker.Connector - Restore dependencies
-      run: dotnet restore
-      working-directory: src/EdNexusData.Broker.Connector/
-    - name: EdNexusData.Broker.Connector - Build
-      run: dotnet build --no-restore
-      working-directory: src/EdNexusData.Broker.Connector/
-    - name: EdNexusData.Broker.Connector - Test
-      run: dotnet test --no-build --verbosity normal
-      working-directory: src/EdNexusData.Broker.Connector/
-    - name: EdNexusData.Broker.Connector - Upload a Build Artifact
-      uses: actions/upload-artifact@v4.3.1
-      with:
-        name: EdNexusData.Broker.Connector
-        path: src/EdNexusData.Broker.Connector/bin/Debug/net8.0/**/*
-    - name: EdNexusData.Broker.Connector - Package
+        name: EdNexusData.Broker.Core
+        path: src/EdNexusData.Broker.Core/bin/Debug/net8.0/**/*
+    - name: EdNexusData.Broker.Core - Package
       run: dotnet pack -c Release -o "pack/" -property:version=0.1.$RUN_NUMBER -property:commit=$COMMIT
       env: 
         RUN_NUMBER: ${{ github.run_number }}
         COMMIT: ${{ github.sha }}
-      working-directory: src/EdNexusData.Broker.Connector/
-    - name: EdNexusData.Broker.Connector - Upload package
+      working-directory: src/EdNexusData.Broker.Core/
+    - name: EdNexusData.Broker.Core - Upload package
       uses: actions/upload-artifact@v4.3.1
       with:
-        name: EdNexusData.Broker.Connector.nupkg
-        path: src/EdNexusData.Broker.Connector/pack/**/*
-    - name: EdNexusData.Broker.Connector - Add Package Source
+        name: EdNexusData.Broker.Core.nupkg
+        path: src/EdNexusData.Broker.Core/pack/**/*
+    - name: EdNexusData.Broker.Core - Add Package Source
       run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ednexusdata/index.json"
-      working-directory: src/EdNexusData.Broker.Connector/
-    - name: EdNexusData.Broker.Connector - Publish Package
-      run: dotnet nuget push "pack/EdNexusData.Broker.Connector.0.1.$RUN_NUMBER.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+      working-directory: src/EdNexusData.Broker.Core/
+    - name: EdNexusData.Broker.Core - Publish Package
+      run: dotnet nuget push "pack/EdNexusData.Broker.Core.0.1.$RUN_NUMBER.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
       env: 
         RUN_NUMBER: ${{ github.run_number }}
-      working-directory: src/EdNexusData.Broker.Connector/
+      working-directory: src/EdNexusData.Broker.Core/
