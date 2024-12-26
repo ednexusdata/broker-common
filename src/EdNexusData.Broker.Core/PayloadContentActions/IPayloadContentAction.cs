@@ -9,7 +9,7 @@ public interface IPayloadContentAction
     public Task<(bool, object)> ExecuteAsync(object mapping, 
         PayloadContentAction payloadContentAction, 
         IStudent student, 
-        Contracts.Student brokerStudent,
+        Student.Student brokerStudent,
         EducationOrganization.EducationOrganization educationOrganization
     );
 }

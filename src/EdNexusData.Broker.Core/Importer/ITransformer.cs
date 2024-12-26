@@ -6,7 +6,7 @@ public interface ITransformer<IT, RT>
 {
     public RT Map(
         IT objectToMap, 
-        Contracts.Student student, 
+        Student.Student student, 
         EducationOrganization.EducationOrganization educationOrganization,
         Manifest manifest
     );

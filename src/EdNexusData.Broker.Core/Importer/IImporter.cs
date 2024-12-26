@@ -8,7 +8,7 @@ public interface IImporter
     public void Prepare(
         Type typeOfObjectsToImport, 
         object objectsToImport, 
-        Contracts.Student student,
+        Student.Student student,
         EducationOrganization.EducationOrganization educationOrganization,
         Manifest manifest
     );
@@ -16,7 +16,7 @@ public interface IImporter
     public Task PrepareAsync(
         Type typeOfObjectsToImport, 
         object objectsToImport, 
-        Contracts.Student student,
+        Student.Student student,
         EducationOrganization.EducationOrganization educationOrganization,
         Manifest manifest
     );
