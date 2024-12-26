@@ -1,5 +1,3 @@
-using System.Text.Json;
-
 namespace EdNexusData.Broker.Core.StudentLookup;
 
 public record StudentLookupResult

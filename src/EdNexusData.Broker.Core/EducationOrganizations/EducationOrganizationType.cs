@@ -1,4 +1,4 @@
-namespace EdNexusData.Broker.Core.EducationOrganization;
+namespace EdNexusData.Broker.Core.EducationOrganizations;
 
 public enum EducationOrganizationType
 {

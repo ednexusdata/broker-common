@@ -1,4 +1,4 @@
-namespace EdNexusData.Broker.Core.Student;
+namespace EdNexusData.Broker.Core.Students;
 
 public class Student
 {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace EdNexusData.Broker.Core.Mapping;
+namespace EdNexusData.Broker.Core.Mappings;
 
 public interface IMappingLookup
 {

@@ -1,3 +1,5 @@
+using EdNexusData.Broker.Core.PayloadContentActions;
+
 namespace EdNexusData.Broker.Core.Jobs;
 
 public interface IJobStatusService

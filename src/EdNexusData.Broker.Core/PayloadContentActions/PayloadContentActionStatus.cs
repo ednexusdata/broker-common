@@ -1,9 +1,8 @@
 // Copyright: 2023 Education Nexus Oregon
 // Author: Makoa Jacobsen, makoa@makoajacobsen.com
-
 using System.ComponentModel;
 
-namespace EdNexusData.Broker.Core;
+namespace EdNexusData.Broker.Core.PayloadContentActions;
 
 public enum PayloadContentActionStatus
 {

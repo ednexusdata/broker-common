@@ -1,4 +1,3 @@
-using EdNexusData.Broker.Core;
 using EdNexusData.Broker.Core.Connector;
 
 namespace Microsoft.Extensions.DependencyInjection;

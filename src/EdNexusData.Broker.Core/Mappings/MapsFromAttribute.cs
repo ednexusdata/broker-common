@@ -1,4 +1,4 @@
-namespace EdNexusData.Broker.Core.Mapping;
+namespace EdNexusData.Broker.Core.Mappings;
 
 public class MapsFromAttribute : Attribute
 {

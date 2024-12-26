@@ -3,7 +3,7 @@ using EdNexusData.Broker.Core.Attributes;
 using EdNexusData.Broker.Core.Authentication;
 using EdNexusData.Broker.Core.Connector;
 using EdNexusData.Broker.Core.Jobs;
-using EdNexusData.Broker.Core.Mapping;
+using EdNexusData.Broker.Core.Mappings;
 using EdNexusData.Broker.Core.PayloadContentActions;
 using EdNexusData.Broker.Core.Payloads;
 using Microsoft.Extensions.Logging;
