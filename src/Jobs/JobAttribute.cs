@@ -1,5 +1,5 @@
 
-// namespace EdNexusData.Broker.Core.Attributes;
+// namespace EdNexusData.Broker.Common.Attributes;
 
 // [AttributeUsage(AttributeTargets.Class)]
 // public class JobAttribute : Attribute

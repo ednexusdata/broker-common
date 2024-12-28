@@ -1,5 +1,5 @@
 
-// namespace EdNexusData.Broker.Core.PayloadContentActions;
+// namespace EdNexusData.Broker.Common.PayloadContentActions;
 
 // public class IgnorePayloadContentAction : IPayloadContentAction
 // {
