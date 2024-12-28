@@ -22,34 +22,34 @@ jobs:
         dotnet-version: 8.0.x
     - name: EdNexusData.Broker.Common - Restore dependencies
       run: dotnet restore
-      working-directory: src/EdNexusData.Broker.Common/
+      working-directory: src/
     - name: EdNexusData.Broker.Common - Build
       run: dotnet build --no-restore
-      working-directory: src/EdNexusData.Broker.Common/
+      working-directory: src/
     - name: EdNexusData.Broker.Common - Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: src/EdNexusData.Broker.Common/
+      working-directory: src/
     - name: EdNexusData.Broker.Common - Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
         name: EdNexusData.Broker.Common
-        path: src/EdNexusData.Broker.Common/bin/Debug/net8.0/**/*
+        path: src/bin/Debug/net8.0/**/*
     - name: EdNexusData.Broker.Common - Package
       run: dotnet pack -c Release -o "pack/" -property:version=0.1.$RUN_NUMBER -property:commit=$COMMIT
       env: 
         RUN_NUMBER: ${{ github.run_number }}
         COMMIT: ${{ github.sha }}
-      working-directory: src/EdNexusData.Broker.Common/
+      working-directory: src/
     - name: EdNexusData.Broker.Common - Upload package
       uses: actions/upload-artifact@v4.3.1
       with:
         name: EdNexusData.Broker.Common.nupkg
-        path: src/EdNexusData.Broker.Common/pack/**/*
+        path: src/pack/**/*
     - name: EdNexusData.Broker.Common - Add Package Source
       run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ednexusdata/index.json"
-      working-directory: src/EdNexusData.Broker.Common/
+      working-directory: src/
     - name: EdNexusData.Broker.Common - Publish Package
       run: dotnet nuget push "pack/EdNexusData.Broker.Common.0.1.$RUN_NUMBER.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
       env: 
         RUN_NUMBER: ${{ github.run_number }}
-      working-directory: src/EdNexusData.Broker.Common/
+      working-directory: src/
