@@ -4,4 +4,6 @@ public abstract class DataPayloadContent : PayloadContent
 {   
     public object? Content { get; set; }
     public abstract PayloadContentSchema Schema { get; }
+
+    public List<DataPayloadContent>? AdditionalContents { get; set; }
 }
