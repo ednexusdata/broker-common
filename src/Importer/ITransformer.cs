@@ -7,7 +7,7 @@ namespace EdNexusData.Broker.Common;
 
 public interface ITransformer<IT, RT>
 {
-    public RT Map(
+    public Task<RT> Map(
         IT objectToMap, 
         Student student, 
         EducationOrganization educationOrganization,
