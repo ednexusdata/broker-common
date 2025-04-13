@@ -28,5 +28,8 @@ public enum PayloadContentActionStatus
     Importing,
 
     [Description("Imported")]
-    Imported
+    Imported,
+
+    [Description("Error")]
+    Error
 }
