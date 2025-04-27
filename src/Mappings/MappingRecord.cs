@@ -16,6 +16,6 @@ public class MappingRecord
         }
     }
     public string? BrokerOriginalId { get; set; }
-
+    public bool IsValid { get; set; } = true;
     public MappingRecordAction BrokerMappingRecordAction { get; set; } = MappingRecordAction.None;
 }

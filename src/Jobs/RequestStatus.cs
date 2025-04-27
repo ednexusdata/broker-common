@@ -21,14 +21,14 @@ public enum RequestStatus
     [Description("Received")]
     Received,
 
-    [Description("Waiting to Load")]
-    WaitingToLoad,
+    [Description("Waiting to Extract")]
+    WaitingToExtract,
 
-    [Description("Loading")]
-    Loading,
+    [Description("Extracting")]
+    Extracting,
 
-    [Description("Loaded")]
-    Loaded,
+    [Description("Extracted")]
+    Extracted,
 
     [Description("Waiting to Transmit")]
     WaitingToTransmit,
@@ -43,5 +43,11 @@ public enum RequestStatus
     InProgress,
 
     [Description("Finished")]
-    Finished
+    Finished,
+    
+    [Description("Re-opened")]
+    Reopened,
+
+    [Description("Closed")]
+    Closed
 }
