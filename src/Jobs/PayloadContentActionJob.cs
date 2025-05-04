@@ -1,13 +1,14 @@
 using EdNexusData.Broker.Common.EducationOrganizations;
+using EdNexusData.Broker.Common.PayloadContentActions;
 using EdNexusData.Broker.Common.Students;
 
-namespace EdNexusData.Broker.Common.PayloadContentActions;
+namespace EdNexusData.Broker.Common.Jobs;
 
-public interface IPayloadContentAction
+public abstract class PayloadContentActionJob
 {
     public static string DisplayName { get; } = default!;
     
-    public Task<(bool, object)> ExecuteAsync(object mapping, 
+    public abstract Task<object?> ExecuteAsync(object mapping, 
         PayloadContentAction payloadContentAction, 
         IStudent student, 
         Student brokerStudent,
