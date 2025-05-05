@@ -5,9 +5,7 @@ using EdNexusData.Broker.Common.Students;
 namespace EdNexusData.Broker.Common.Jobs;
 
 public abstract class PayloadContentActionJob
-{
-    public static string DisplayName { get; } = default!;
-    
+{   
     public abstract Task<object?> ExecuteAsync(object mapping, 
         PayloadContentAction payloadContentAction, 
         IStudent student, 
