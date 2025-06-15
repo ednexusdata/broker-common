@@ -11,45 +11,55 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: EdNexusData.Broker.Common - Restore dependencies
-      run: dotnet restore
-      working-directory: src/
-    - name: EdNexusData.Broker.Common - Build
-      run: dotnet build --no-restore
-      working-directory: src/
-    - name: EdNexusData.Broker.Common - Test
-      run: dotnet test --no-build --verbosity normal
-      working-directory: src/
-    - name: EdNexusData.Broker.Common - Upload a Build Artifact
-      uses: actions/upload-artifact@v4.3.1
-      with:
-        name: EdNexusData.Broker.Common
-        path: src/bin/Debug/net8.0/**/*
-    - name: EdNexusData.Broker.Common - Package
-      run: dotnet pack -c Release -o "pack/" -property:version=0.1.$RUN_NUMBER -property:commit=$COMMIT
-      env: 
-        RUN_NUMBER: ${{ github.run_number }}
-        COMMIT: ${{ github.sha }}
-      working-directory: src/
-    - name: EdNexusData.Broker.Common - Upload package
-      uses: actions/upload-artifact@v4.3.1
-      with:
-        name: EdNexusData.Broker.Common.nupkg
-        path: src/pack/**/*
-    - name: EdNexusData.Broker.Common - Add Package Source
-      run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ednexusdata/index.json"
-      working-directory: src/
-    - name: EdNexusData.Broker.Common - Publish Package
-      run: dotnet nuget push "pack/EdNexusData.Broker.Common.0.1.$RUN_NUMBER.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
-      env: 
-        RUN_NUMBER: ${{ github.run_number }}
-      working-directory: src/
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Bump build version
+        id: bump
+        uses: vers-one/dotnet-project-version-updater@v1.7
+        with:
+          file: |
+            "src/**/*.csproj", "src/**/*.nuspec", "src/**/AssemblyInfo.cs"
+          version: bump-build
+      - name: Commit build version
+        run: |
+          git config user.name "GH Action ${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add .
+          git commit -m "Bump project version to ${{ steps.bump.outputs.newVersion }}"
+          git push
+      - name: EdNexusData.Broker.Common - Restore dependencies
+        run: dotnet restore
+        working-directory: src/
+      - name: EdNexusData.Broker.Common - Build
+        run: dotnet build --no-restore
+        working-directory: src/
+      - name: EdNexusData.Broker.Common - Test
+        run: dotnet test --no-build --verbosity normal
+        working-directory: src/
+      - name: EdNexusData.Broker.Common - Upload a Build Artifact
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: EdNexusData.Broker.Common
+          path: src/bin/Debug/net8.0/**/*
+      - name: EdNexusData.Broker.Common - Package
+        run: dotnet pack -c Release -o "pack/" -property:commit=$COMMIT
+        env:
+          COMMIT: ${{ github.sha }}
+        working-directory: src/
+      - name: EdNexusData.Broker.Common - Upload package
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: EdNexusData.Broker.Common.nupkg
+          path: src/pack/**/*
+      - name: EdNexusData.Broker.Common - Add Package Source
+        run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ednexusdata/index.json"
+        working-directory: src/
+      - name: EdNexusData.Broker.Common - Publish Package
+        run: dotnet nuget push "pack/EdNexusData.Broker.Common.${{ steps.bump.outputs.newVersion }}.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+        working-directory: src/
