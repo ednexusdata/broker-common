@@ -2,10 +2,10 @@
 <package >
   <metadata>
     <id>EdNexusData.Broker.Common</id>
-    <version>$version$</version>
+    <version>0.1.75</version>
     <title>$title$</title>
     <authors>Makoa Jacobsen</authors>
-    <owners>Makoa Jacobsen</owners>
+    <owners>Education Nexus</owners>
     <description>Broker Common</description>
     <repository type="git" url="https://github.com/ednexusdata/broker-common" commit="$commit$" />
     <dependencies>
