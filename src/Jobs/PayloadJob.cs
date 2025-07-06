@@ -10,5 +10,9 @@ public abstract class PayloadJob
 
     public IJobStatusService? JobStatusService;
     
-    public abstract Task<object?> ExecuteAsync(string studentUniqueId, JsonDocument? configuration);
+    public abstract Task<object?> ExecuteAsync(
+        string studentUniqueId,
+        JsonDocument? configuration,
+        IJobStatusService jobStatusService
+    );
 }

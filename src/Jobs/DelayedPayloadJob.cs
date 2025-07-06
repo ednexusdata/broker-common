@@ -8,13 +8,21 @@ public abstract class DelayedPayloadJob : PayloadJob
     
     protected JsonDocument? Configuration;
 
-    public abstract Task<DelayedJobStatus> StartAsync(string studentUniqueId, JsonDocument? configuration);
+    public abstract Task<DelayedJobStatus> StartAsync(
+        string studentUniqueId,
+        JsonDocument? configuration,
+        IJobStatusService jobStatusService
+    );
 
-    public abstract Task<DelayedJobStatus> ContinueAsync();
+    public abstract Task<DelayedJobStatus> ContinueAsync(IJobStatusService jobStatusService);
 
-    public abstract Task<object?> FinishAsync();
+    public abstract Task<object?> FinishAsync(IJobStatusService jobStatusService);
 
-    public override Task<object?> ExecuteAsync(string studentUniqueId, JsonDocument? configuration)
+    public override Task<object?> ExecuteAsync(
+        string studentUniqueId,
+        JsonDocument? configuration,
+        IJobStatusService jobStatusService
+    )
     {
         throw new NotImplementedException("ExecuteAsync not to be implemented for PayloadJob");
     }
