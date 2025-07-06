@@ -1,5 +1,5 @@
 using EdNexusData.Broker.Common.EducationOrganizations;
-using EdNexusData.Broker.Common.Importer;
+using EdNexusData.Broker.Common.Jobs;
 using EdNexusData.Broker.Common.PayloadContents;
 using EdNexusData.Broker.Common.Requests;
 using EdNexusData.Broker.Common.Students;
@@ -13,6 +13,7 @@ public interface ITransformer<IT, RT>
         Student student, 
         EducationOrganization educationOrganization,
         Manifest manifest,
+        IJobStatusService jobStatusService,
         List<DataPayloadContent>? additionalContents = null
     );
 }

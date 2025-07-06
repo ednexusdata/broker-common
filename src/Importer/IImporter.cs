@@ -1,4 +1,5 @@
 using EdNexusData.Broker.Common.EducationOrganizations;
+using EdNexusData.Broker.Common.Jobs;
 using EdNexusData.Broker.Common.Requests;
 using EdNexusData.Broker.Common.Students;
 
@@ -12,7 +13,8 @@ public interface IImporter
         object objectsToImport, 
         Student student,
         EducationOrganization educationOrganization,
-        Manifest manifest
+        Manifest manifest,
+        IJobStatusService jobStatusService
     );
 
     public Task PrepareAsync(
@@ -20,8 +22,9 @@ public interface IImporter
         object objectsToImport, 
         Student student,
         EducationOrganization educationOrganization,
-        Manifest manifest
+        Manifest manifest,
+        IJobStatusService jobStatusService
     );
 
-    public Task<object> ImportAsync();
+    public Task<object> ImportAsync(IJobStatusService jobStatusService);
 }

@@ -10,6 +10,7 @@ public abstract class PayloadContentActionJob
         PayloadContentAction payloadContentAction, 
         IStudent student, 
         Student brokerStudent,
-        EducationOrganization educationOrganization
+        EducationOrganization educationOrganization,
+        IJobStatusService jobStatusService
     );
 }

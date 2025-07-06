@@ -12,19 +12,21 @@ public abstract class DelayedPayloadContentActionJob : PayloadContentActionJob
         PayloadContentAction payloadContentAction, 
         IStudent student, 
         Student brokerStudent,
-        EducationOrganization educationOrganization
+        EducationOrganization educationOrganization,
+        IJobStatusService jobStatusService
     );
 
-    public abstract Task<DelayedJobStatus> ContinueAsync();
+    public abstract Task<DelayedJobStatus> ContinueAsync(IJobStatusService jobStatusService);
 
-    public abstract Task<object?> FinishAsync();
+    public abstract Task<object?> FinishAsync(IJobStatusService jobStatusService);
 
     public override Task<object?> ExecuteAsync(
         object mapping, 
         PayloadContentAction payloadContentAction, 
         IStudent student, 
         Student brokerStudent,
-        EducationOrganization educationOrganization
+        EducationOrganization educationOrganization,
+        IJobStatusService jobStatusService
     )
     {
         throw new NotImplementedException("ExecuteAsync not to be implemented for PayloadJob");
