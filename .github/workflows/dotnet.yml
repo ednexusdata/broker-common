@@ -11,6 +11,8 @@ on:
 
 jobs:
   build:
+    permissions:
+      id-token: write  # enable GitHub OIDC token issuance for this job
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -63,3 +65,10 @@ jobs:
       - name: EdNexusData.Broker.Common - Publish Package
         run: dotnet nuget push "pack/EdNexusData.Broker.Common.${{ steps.bump.outputs.newVersion }}.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
         working-directory: src/
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+      - name: NuGet push
+        run: dotnet nuget push "pack/EdNexusData.Broker.Common.${{ steps.bump.outputs.newVersion }}.nupkg" --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
