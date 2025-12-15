@@ -8,5 +8,8 @@ public class EducationOrganization
     public string Name { get; set; } = default!;
     public string ShortName { get; set; } = default!;
     public string? Number { get; set; } = default!;
+    public string? StateCode { get; set; } = default!;
+    public string? NcesCode { get; set; } = default!;
+    public string? CeebCode { get; set; } = default!;
     public EducationOrganizationType EducationOrganizationType { get; set; } = EducationOrganizationType.District;
 }
