@@ -9,10 +9,10 @@
     <description>Broker Common</description>
     <repository type="git" url="https://github.com/ednexusdata/broker-common" commit="$commit$" />
     <dependencies>
-      <group targetFramework="net8.0">
-        <dependency id="Microsoft.AspNetCore.Mvc" version="2.2.0" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.Extensions.DependencyInjection" version="8.*" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.Extensions.Logging.Console" version="8.*" exclude="Build,Analyzers" />
+      <group targetFramework="net10.0">
+        <dependency id="Microsoft.AspNetCore.Mvc" version="2.3.*" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="10.*" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Console" version="10.*" exclude="Build,Analyzers" />
         <dependency id="Ardalis.GuardClauses" version="4.0.1" exclude="Build,Analyzers" />
         <dependency id="Ardalis.Result" version="4.1.0" exclude="Build,Analyzers" />
         <dependency id="Ardalis.Specification" version="6.1.0" exclude="Build,Analyzers" />
@@ -21,6 +21,6 @@
     </dependencies>
   </metadata>
    <files>
-     <file src="bin\Release\net8.0\EdNexusData.Broker.*.dll" target="lib\net8.0" />
+     <file src="bin\Release\net10.0\EdNexusData.Broker.*.dll" target="lib\net10.0" />
   </files>
 </package>
