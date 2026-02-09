@@ -6,7 +6,7 @@ using EdNexusData.Broker.Common.Students;
 
 namespace EdNexusData.Broker.Common;
 
-public interface IlistTransformer<IT, RT> : ITransformer<IT, RT>
+public interface IListTransformer<IT, RT> : ITransformer<IT, RT>
 {
     public Task<List<RT>> Map(
         IT objectToMap, 
