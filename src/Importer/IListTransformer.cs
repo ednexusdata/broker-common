@@ -16,4 +16,13 @@ public interface IListTransformer<IT, RT> : ITransformer<IT, RT>
         IJobStatusService jobStatusService,
         List<DataPayloadContent>? additionalContents = null
     );
+
+    public Task<RT> Transform(
+        RT objectToMap, 
+        Student student, 
+        EducationOrganization educationOrganization,
+        Manifest manifest,
+        IJobStatusService jobStatusService,
+        List<DataPayloadContent>? additionalContents = null
+    );
 }
