@@ -7,7 +7,7 @@ namespace EdNexusData.Broker.Common.PayloadContentActions;
 public class PayloadContentAction
 {
     public Guid Id { get; set; }
-    public Guid? PayloadContentId { get; set; }
+    public Guid PayloadContentId { get; set; }
     public PayloadContent? PayloadContent { get; set; }
     public string? PayloadContentActionType { get; set; }
     public Guid? ActiveMappingId { get; set; }
