@@ -13,7 +13,7 @@ public class Mapping
     public PayloadContentAction? PrimaryPayloadContentAction { get; set; }
     public PayloadContentSchema? OriginalSchema { get; set; }
     public string? MappingType { get; set; }
-    public StudentAttributes? StudentAttributes { get; set; }
+    public MappingStudentAttributes? StudentAttributes { get; set; }
     public JsonDocument? JsonSourceMapping { get; set; }
     public JsonDocument? JsonInitialMapping { get; set; }
     public JsonDocument? JsonDestinationMapping { get; set; }
